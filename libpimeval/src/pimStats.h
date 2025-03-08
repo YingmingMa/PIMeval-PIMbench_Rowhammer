@@ -53,6 +53,7 @@ private:
   void pimApiScopeStart();
   void pimApiScopeEnd(const std::string& tag, double elapsed);
 
+  void showMemoryAccessStats() const; //added for memory access
   void showApiStats() const;
   void showDeviceParams() const;
   void showCopyStats() const;
