@@ -147,6 +147,11 @@ public:
   bool pimOpAP(int numSrc, va_list args);
   bool pimOpAAP(int numSrc, int numDest, va_list args);
 
+  //added for memory access pattern
+  pimCore& getCore(PimCoreId coreId) {
+    return m_device->getCore(coreId);
+  }
+
 private:
   pimSim();
   ~pimSim();

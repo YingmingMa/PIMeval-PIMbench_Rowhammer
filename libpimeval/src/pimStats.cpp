@@ -25,7 +25,26 @@ pimStatsMgr::showStats() const
   showDeviceParams();
   showCopyStats();
   showCmdStats();
+  showMemoryAccessStats();
   std::printf("----------------------------------------\n");
+}
+
+//! @brief  Show API stats
+void
+pimStatsMgr::showMemoryAccessStats() const
+{
+  pimSim* sim = pimSim::get();
+  if (!sim || !sim->isValidDevice(false)) {
+    std::printf("No valid PIM device available.\n");
+    return;
+  }
+  
+  unsigned numCores = sim->getNumCores();
+  for (unsigned coreId = 0; coreId < numCores; ++coreId) {
+    std::printf("Memory Access Log for Core %u:\n", coreId);
+    sim->getCore(coreId).printMemoryAccess();
+    std::printf("\n");
+  }
 }
 
 //! @brief  Show API stats
