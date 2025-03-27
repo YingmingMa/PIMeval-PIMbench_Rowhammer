@@ -22,14 +22,14 @@ pimStatsMgr::showStats() const
   if (pimSim::get()->isDebug(pimSimConfig::DEBUG_API_CALLS)) {
     showApiStats();
   }
-  showDeviceParams();
-  showCopyStats();
-  showCmdStats();
+  // showDeviceParams();
+  // showCopyStats();
+  // showCmdStats();
   showMemoryAccessStats();
   std::printf("----------------------------------------\n");
 }
 
-//! @brief  Show API stats
+//! @brief  Show PIM Memory Access Stats
 void
 pimStatsMgr::showMemoryAccessStats() const
 {
