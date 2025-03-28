@@ -78,7 +78,9 @@ bitSerialMain::runTests(const std::vector<std::string>& deviceList, const std::v
 int main()
 {
   bitSerialMain app;
-  app.runTests();
+  std::vector<std::string> devices = { "bitsimd_v" };
+  std::vector<std::string> tests = { "int32" };
+  app.runTests(devices, tests);
   return 0;
 }
 

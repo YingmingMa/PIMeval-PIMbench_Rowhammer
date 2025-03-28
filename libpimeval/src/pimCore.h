@@ -48,7 +48,7 @@ public:
   bool declareRowReg(PimRowReg reg);
   bool declareColReg(const std::string& name);
   void print() const;
-  void printMemoryAccess() const;  // New method to print memory access log
+  void printMemoryAccess();  // New method to print memory access log
 
   // Directly manipulate bits for functional implementation
   //! @brief  Directly set a bit for functional simulation
@@ -114,7 +114,9 @@ private:
 
   std::map<PimRowReg, std::vector<bool>> m_rowRegs;
   std::map<std::string, std::vector<bool>> m_colRegs;
-  std::vector<std::string> m_memoryAccessLog;  // New log to record memory access
+  // std::vector<std::string> m_memoryAccessLog;  // New log to record memory access
+  std::map<unsigned, unsigned> m_rowMemoryAccessLog;
+  std::map<unsigned, unsigned> m_colMemoryAccessLog;
 };
 
 #endif

@@ -4,6 +4,7 @@
 // See the LICENSE file in the root of this repository for more details.
 
 #include "libpimeval.h"
+// #include "bitSerialBitsimd.h"
 #include <iostream>
 #include <vector>
 #include <cassert>
@@ -35,6 +36,8 @@ bool testRowHammer()
 {
   unsigned numElements = 1000;
 
+  // bitSerialBitsimd device;
+
   std::vector<int> src1(numElements);
   std::vector<int> src2(numElements);
   std::vector<int> src3(numElements);
@@ -63,19 +66,21 @@ bool testRowHammer()
   status = pimCopyHostToDevice((void*)src3.data(), obj3);
   assert(status == PIM_OK);
 
-  int numBits = 8;
+  int numBits = 32;
   bool useScalar = 0; 
-  uint64_t scalarVal = 0;
+  uint64_t scalarVal = 32;
 
-  pimOpSet(obj1, PIM_RREG_R1, 0);
-  for (int i = 0; i < numBits; ++i) {
-    pimOpReadRowToSa(obj1, i);
-    pimOpXor(obj1, PIM_RREG_SA, PIM_RREG_R1, PIM_RREG_R2);
-    implReadRowOrScalar(obj2, i, useScalar, scalarVal);
-    pimOpSel(obj1, PIM_RREG_R2, PIM_RREG_SA, PIM_RREG_R1, PIM_RREG_R1);
-    pimOpXor(obj1, PIM_RREG_R2, PIM_RREG_SA, PIM_RREG_SA);
-    pimOpWriteSaToRow(obj3, i);
-  }
+  // for (int i = 0; i < 10; ++i) {
+    pimOpSet(obj1, PIM_RREG_R1, 0);
+    for (int i = 0; i < numBits; ++i) {
+      pimOpReadRowToSa(obj1, i);
+      pimOpXor(obj1, PIM_RREG_SA, PIM_RREG_R1, PIM_RREG_R2);
+      implReadRowOrScalar(obj1, i, useScalar, scalarVal);
+      pimOpSel(obj1, PIM_RREG_R2, PIM_RREG_SA, PIM_RREG_R1, PIM_RREG_R1);
+      pimOpXor(obj1, PIM_RREG_R2, PIM_RREG_SA, PIM_RREG_SA);
+      pimOpWriteSaToRow(obj1, i);
+    }
+  // }
 
   return true;
 }

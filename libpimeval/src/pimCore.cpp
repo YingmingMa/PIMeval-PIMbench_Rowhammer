@@ -57,10 +57,10 @@ pimCore::readRow(unsigned rowIndex)
 {
   if (rowIndex >= m_numRows) {
     std::printf("PIM-Error: Out-of-boundary subarray row read: index = %u, numRows = %u\n", rowIndex, m_numRows);
-    m_memoryAccessLog.push_back("Failed readRow: rowIndex = " + std::to_string(rowIndex) + " (out of bounds)");
     return false;
   }
-  m_memoryAccessLog.push_back("readRow: rowIndex = " + std::to_string(rowIndex));
+  // Increment counter for the row read
+  m_rowMemoryAccessLog[rowIndex]++;
   m_rowRegs[PIM_RREG_SA] = m_array[rowIndex];
   return true;
 }
@@ -71,10 +71,10 @@ pimCore::readCol(unsigned colIndex)
 {
   if (colIndex >= m_numCols) {
     std::printf("PIM-Error: Out-of-boundary subarray column read: index = %u, numCols = %u\n", colIndex, m_numCols);
-    m_memoryAccessLog.push_back("Failed readCol: colIndex = " + std::to_string(colIndex) + " (out of bounds)");
     return false;
   }
-  m_memoryAccessLog.push_back("readCol: colIndex = " + std::to_string(colIndex));
+  // Increment counter for the column read
+  m_colMemoryAccessLog[colIndex]++;
   for (unsigned row = 0; row < m_numRows; ++row) {
     m_senseAmpCol[row] = m_array[row][colIndex];
   }
@@ -86,26 +86,22 @@ pimCore::readCol(unsigned colIndex)
 bool
 pimCore::readMultiRows(const std::vector<std::pair<unsigned, bool>>& rowIdxs)
 {
-  std::string logEntry = "readMultiRows: indices = ";
-  for (const auto& kv : rowIdxs) {
-    logEntry += "(" + std::to_string(kv.first) + ", dualContact=" + (kv.second ? "true" : "false") + ") ";
-  }
-  // sanity check
+  // Sanity check: even number of rows is undefined.
   if (rowIdxs.size() % 2 == 0) {
     std::printf("PIM-Error: Behavior of simultaneously reading even number of rows is undefined\n");
-    m_memoryAccessLog.push_back(logEntry + " - Failed (even number of rows)");
     return false;
   }
   for (const auto& kv : rowIdxs) {
     if (kv.first >= m_numRows) {
       std::printf("PIM-Error: Out-of-boundary subarray multi-row read: idx = %u, numRows = %u\n", kv.first, m_numRows);
-      m_memoryAccessLog.push_back(logEntry + " - Failed (index " + std::to_string(kv.first) + " out of bounds)");
       return false;
     }
   }
-  m_memoryAccessLog.push_back(logEntry);
-
-  // compute majority
+  // Increment counter for each row accessed
+  for (const auto& kv : rowIdxs) {
+    m_rowMemoryAccessLog[kv.first]++;
+  }
+  // Compute majority and update registers and rows.
   for (unsigned col = 0; col < m_numCols; ++col) {
     unsigned sum = 0;
     for (const auto& kv : rowIdxs) {
@@ -130,20 +126,17 @@ pimCore::readMultiRows(const std::vector<std::pair<unsigned, bool>>& rowIdxs)
 bool
 pimCore::writeMultiRows(const std::vector<std::pair<unsigned, bool>>& rowIdxs)
 {
-  std::string logEntry = "writeMultiRows: indices = ";
-  for (const auto& kv : rowIdxs) {
-    logEntry += "(" + std::to_string(kv.first) + ", dualContact=" + (kv.second ? "true" : "false") + ") ";
-  }
-  // sanity check
   for (const auto& kv : rowIdxs) {
     if (kv.first >= m_numRows) {
-      std::printf("PIM-Error: Out-of-boundary subarray multi-row read: idx = %u, numRows = %u\n", kv.first, m_numRows);
-      m_memoryAccessLog.push_back(logEntry + " - Failed (index " + std::to_string(kv.first) + " out of bounds)");
+      std::printf("PIM-Error: Out-of-boundary subarray multi-row write: idx = %u, numRows = %u\n", kv.first, m_numRows);
       return false;
     }
   }
-  m_memoryAccessLog.push_back(logEntry);
-  // write
+  // Increment counter for each row written
+  for (const auto& kv : rowIdxs) {
+    m_rowMemoryAccessLog[kv.first]++;
+  }
+  // Write operation: update each row with values from SA
   for (unsigned col = 0; col < m_numCols; ++col) {
     bool val = m_rowRegs[PIM_RREG_SA][col];
     for (const auto& kv : rowIdxs) {
@@ -161,10 +154,10 @@ pimCore::writeRow(unsigned rowIndex)
 {
   if (rowIndex >= m_numRows) {
     std::printf("PIM-Error: Out-of-boundary subarray row write: index = %u, numRows = %u\n", rowIndex, m_numRows);
-    m_memoryAccessLog.push_back("Failed writeRow: rowIndex = " + std::to_string(rowIndex) + " (out of bounds)");
     return false;
   }
-  m_memoryAccessLog.push_back("writeRow: rowIndex = " + std::to_string(rowIndex));
+  // Increment counter for the row write
+  m_rowMemoryAccessLog[rowIndex]++;
   m_array[rowIndex] = m_rowRegs[PIM_RREG_SA];
   return true;
 }
@@ -175,10 +168,10 @@ pimCore::writeCol(unsigned colIndex)
 {
   if (colIndex >= m_numCols) {
     std::printf("PIM-Error: Out-of-boundary subarray column write: index = %u, numCols = %u\n", colIndex, m_numCols);
-    m_memoryAccessLog.push_back("Failed writeCol: colIndex = " + std::to_string(colIndex) + " (out of bounds)");
     return false;
   }
-  m_memoryAccessLog.push_back("writeCol: colIndex = " + std::to_string(colIndex));
+  // Increment counter for the column write
+  m_colMemoryAccessLog[colIndex]++;
   for (unsigned row = 0; row < m_numRows; ++row) {
     m_array[row][colIndex] = m_senseAmpCol[row];
   }
@@ -197,7 +190,7 @@ pimCore::setSenseAmpRow(const std::vector<bool>& vals)
   return true;
 }
 
-//! @brief  Set values to row sense amplifiers
+//! @brief  Set values to column sense amplifiers
 bool
 pimCore::setSenseAmpCol(const std::vector<bool>& vals)
 {
@@ -246,14 +239,25 @@ pimCore::print() const
   std::printf("%s\n", oss.str().c_str());
 }
 
-void pimCore::printMemoryAccess() const
+//! @brief  Print the memory access logs in CSV format.
+//!! Each call of print will reset the counter status !!
+void pimCore::printMemoryAccess()
 {
-    std::printf("\nRecorded Memory Accesses:\n");
-    for (const auto &entry : m_memoryAccessLog)
+    std::printf("\nRecorded Row Memory Accesses (CSV):\n");
+    std::printf("RowIndex,AccessCount\n");
+    for (const auto &entry : m_rowMemoryAccessLog)
     {
-      // std::printf("memory access log");
-      std::printf("%s\n", entry.c_str());
+      std::printf("%u,%u\n", entry.first, entry.second);
+    }
+
+    std::printf("\nRecorded Column Memory Accesses (CSV):\n");
+    std::printf("ColIndex,AccessCount\n");
+    for (const auto &entry : m_colMemoryAccessLog)
+    {
+      std::printf("%u,%u\n", entry.first, entry.second);
     }
     std::printf("\n");
-}
 
+    m_colMemoryAccessLog.clear();
+    m_rowMemoryAccessLog.clear();
+}
