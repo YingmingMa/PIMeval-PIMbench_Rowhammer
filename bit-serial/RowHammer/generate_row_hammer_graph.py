@@ -33,7 +33,6 @@ plt.bar(df["Command"], df["Accesses_per_ms"], color=bar_colors)
 # Add labels and title
 plt.xlabel("PIM Command")
 plt.ylabel("Accesses per ms")
-plt.title("Memory Accesses per Millisecond for Each PIM Command")
 plt.xticks(rotation=90)
 plt.grid(axis='y')
 
