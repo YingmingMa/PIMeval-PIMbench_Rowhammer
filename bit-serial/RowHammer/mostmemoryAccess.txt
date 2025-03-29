@@ -1,0 +1,170 @@
+INFO: Bit-serial Micro-program Performance Results
+
+Command: ABS
+  Core 0: Row 31 with 2 accesses
+  Core 1: Row 31 with 2 accesses
+  Core 2: Row 31 with 2 accesses
+  Core 3: Row 31 with 2 accesses
+
+Command: POPCOUNT
+  Core 0: Row 146 with 9 accesses
+  Core 1: Row 146 with 9 accesses
+  Core 2: Row 146 with 9 accesses
+  Core 3: Row 146 with 9 accesses
+
+Command: ADD
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: SUB
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: MUL
+  Core 0: Row 159 with 63 accesses
+  Core 1: Row 159 with 63 accesses
+  Core 2: Row 159 with 63 accesses
+  Core 3: Row 159 with 63 accesses
+
+Command: DIV
+  Core 0: Row 286 with 95 accesses
+  Core 1: Row 286 with 95 accesses
+  Core 2: Row 286 with 95 accesses
+  Core 3: Row 286 with 95 accesses
+
+Command: AND
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: OR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: XOR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: XNOR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: GT
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: LT
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: EQ
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: MIN
+  Core 0: Row 63 with 2 accesses
+  Core 1: Row 63 with 2 accesses
+  Core 2: Row 63 with 2 accesses
+  Core 3: Row 63 with 2 accesses
+
+Command: MAX
+  Core 0: Row 63 with 2 accesses
+  Core 1: Row 63 with 2 accesses
+  Core 2: Row 63 with 2 accesses
+  Core 3: Row 63 with 2 accesses
+
+Command: ADD_SCALAR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: SUB_SCALAR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: MUL_SCALAR
+  Core 0: Row 159 with 63 accesses
+  Core 1: Row 159 with 63 accesses
+  Core 2: Row 159 with 63 accesses
+  Core 3: Row 159 with 63 accesses
+
+Command: DIV_SCALAR
+  Core 0: Row 286 with 95 accesses
+  Core 1: Row 286 with 95 accesses
+  Core 2: Row 286 with 95 accesses
+  Core 3: Row 286 with 95 accesses
+
+Command: AND_SCALAR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: OR_SCALAR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: XOR_SCALAR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: XNOR_SCALAR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: GT_SCALAR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: LT_SCALAR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: EQ_SCALAR
+  Core 0: Row 159 with 1 accesses
+  Core 1: Row 159 with 1 accesses
+  Core 2: Row 159 with 1 accesses
+  Core 3: Row 159 with 1 accesses
+
+Command: MIN_SCALAR
+  Core 0: Row 31 with 2 accesses
+  Core 1: Row 31 with 2 accesses
+  Core 2: Row 31 with 2 accesses
+  Core 3: Row 31 with 2 accesses
+
+Command: MAX_SCALAR
+  Core 0: Row 31 with 2 accesses
+  Core 1: Row 31 with 2 accesses
+  Core 2: Row 31 with 2 accesses
+  Core 3: Row 31 with 2 accesses
+

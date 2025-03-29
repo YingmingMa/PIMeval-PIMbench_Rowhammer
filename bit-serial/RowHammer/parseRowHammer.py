@@ -12,7 +12,7 @@ if len(sys.argv) != 2:
     exit()
 
 filename = sys.argv[1]
-print("INFO: Bit-serial Micro-program Performance Results")
+# print("INFO: Bit-serial Micro-program Performance Results")
 
 device = ""
 data_type = ""

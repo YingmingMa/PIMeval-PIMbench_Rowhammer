@@ -1,10 +1,10 @@
-INFO: Bit Serial Performance Modeling for bitsimd_v
+INFO: Bit Serial Performance Modeling for bitsimd_v_ap
 ----------------------------------------
 PIM-Config: Debug Flags = 0x0
 PIM-Config: Simulator Config File: <NONE>
 PIM-Config: Memory Config File: <DEFAULT>
 PIM-Config: Memory Protocol: DDR
-PIM-Config: Current Device = PIM_DEVICE_BITSIMD_V, Simulation Target = PIM_DEVICE_BITSIMD_V
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_V_AP, Simulation Target = PIM_DEVICE_BITSIMD_V_AP
 PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 16, #rowsPerSubarray = 8192, #colsPerSubarray = 1024
 PIM-Config: Number of Threads = 8
 PIM-Config: Load Balanced = 1
@@ -14,10 +14,32 @@ PIM-Info: Created performance energy model for bit-serial PIM
 PIM-Info: Created PIM device with 8 cores of 16384 rows and 1024 columns.
 PIM-Info: Created thread pool with 7 threads.
 ================================================================
-INFO: Evaluating bit-serial micro-programs for [bitsimd_v:int32]
+INFO: Evaluating bit-serial micro-programs for [bitsimd_v_ap:int32]
 ================================================================
-[bitsimd_v:int32:abs:0] Start
+[bitsimd_v_ap:int32:abs:0] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         33       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.and :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :          2       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :          1       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :        160       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        260       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 33, 32, 195
+        Num Activate, Precharge : 65, 65
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -347,9 +369,32 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:abs:0] End  -- Succeeded
-[bitsimd_v:int32:popcount:1] Start
+[bitsimd_v_ap:int32:abs:0] End  -- Succeeded
+[bitsimd_v_ap:int32:popcount:1] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :        114       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :        114       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.and :         16       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         47       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         41       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         17       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :        196       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        545       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 114, 114, 317
+        Num Activate, Precharge : 228, 228
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -679,469 +724,30 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:popcount:1] End  -- Succeeded
-[bitsimd_v:int32:add:2] Start
+[bitsimd_v_ap:int32:popcount:1] End  -- Succeeded
+[bitsimd_v_ap:int32:add:2] Start
 ----------------------------------------
-Memory Access Log for Core 0:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,1
-1,1
-2,1
-3,1
-4,1
-5,1
-6,1
-7,1
-8,1
-9,1
-10,1
-11,1
-12,1
-13,1
-14,1
-15,1
-16,1
-17,1
-18,1
-19,1
-20,1
-21,1
-22,1
-23,1
-24,1
-25,1
-26,1
-27,1
-28,1
-29,1
-30,1
-31,1
-32,1
-33,1
-34,1
-35,1
-36,1
-37,1
-38,1
-39,1
-40,1
-41,1
-42,1
-43,1
-44,1
-45,1
-46,1
-47,1
-48,1
-49,1
-50,1
-51,1
-52,1
-53,1
-54,1
-55,1
-56,1
-57,1
-58,1
-59,1
-60,1
-61,1
-62,1
-63,1
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 1:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,1
-1,1
-2,1
-3,1
-4,1
-5,1
-6,1
-7,1
-8,1
-9,1
-10,1
-11,1
-12,1
-13,1
-14,1
-15,1
-16,1
-17,1
-18,1
-19,1
-20,1
-21,1
-22,1
-23,1
-24,1
-25,1
-26,1
-27,1
-28,1
-29,1
-30,1
-31,1
-32,1
-33,1
-34,1
-35,1
-36,1
-37,1
-38,1
-39,1
-40,1
-41,1
-42,1
-43,1
-44,1
-45,1
-46,1
-47,1
-48,1
-49,1
-50,1
-51,1
-52,1
-53,1
-54,1
-55,1
-56,1
-57,1
-58,1
-59,1
-60,1
-61,1
-62,1
-63,1
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 2:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,1
-1,1
-2,1
-3,1
-4,1
-5,1
-6,1
-7,1
-8,1
-9,1
-10,1
-11,1
-12,1
-13,1
-14,1
-15,1
-16,1
-17,1
-18,1
-19,1
-20,1
-21,1
-22,1
-23,1
-24,1
-25,1
-26,1
-27,1
-28,1
-29,1
-30,1
-31,1
-32,1
-33,1
-34,1
-35,1
-36,1
-37,1
-38,1
-39,1
-40,1
-41,1
-42,1
-43,1
-44,1
-45,1
-46,1
-47,1
-48,1
-49,1
-50,1
-51,1
-52,1
-53,1
-54,1
-55,1
-56,1
-57,1
-58,1
-59,1
-60,1
-61,1
-62,1
-63,1
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 3:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,1
-1,1
-2,1
-3,1
-4,1
-5,1
-6,1
-7,1
-8,1
-9,1
-10,1
-11,1
-12,1
-13,1
-14,1
-15,1
-16,1
-17,1
-18,1
-19,1
-20,1
-21,1
-22,1
-23,1
-24,1
-25,1
-26,1
-27,1
-28,1
-29,1
-30,1
-31,1
-32,1
-33,1
-34,1
-35,1
-36,1
-37,1
-38,1
-39,1
-40,1
-41,1
-42,1
-43,1
-44,1
-45,1
-46,1
-47,1
-48,1
-49,1
-50,1
-51,1
-52,1
-53,1
-54,1
-55,1
-56,1
-57,1
-58,1
-59,1
-60,1
-61,1
-62,1
-63,1
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 4:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 5:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 6:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 7:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-----------------------------------------
-[bitsimd_v:int32:add:2] End  -- Succeeded
-[bitsimd_v:int32:sub:3] Start
-----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :          1       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         64       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        193       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 97
+        Num Activate, Precharge : 96, 96
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -1599,9 +1205,512 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:sub:3] End  -- Succeeded
-[bitsimd_v:int32:mul:4] Start
+[bitsimd_v_ap:int32:add:2] End  -- Succeeded
+[bitsimd_v_ap:int32:sub:3] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :          1       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         64       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        193       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 97
+        Num Activate, Precharge : 96, 96
+Memory Access Log for Core 0:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,1
+1,1
+2,1
+3,1
+4,1
+5,1
+6,1
+7,1
+8,1
+9,1
+10,1
+11,1
+12,1
+13,1
+14,1
+15,1
+16,1
+17,1
+18,1
+19,1
+20,1
+21,1
+22,1
+23,1
+24,1
+25,1
+26,1
+27,1
+28,1
+29,1
+30,1
+31,1
+32,1
+33,1
+34,1
+35,1
+36,1
+37,1
+38,1
+39,1
+40,1
+41,1
+42,1
+43,1
+44,1
+45,1
+46,1
+47,1
+48,1
+49,1
+50,1
+51,1
+52,1
+53,1
+54,1
+55,1
+56,1
+57,1
+58,1
+59,1
+60,1
+61,1
+62,1
+63,1
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 1:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,1
+1,1
+2,1
+3,1
+4,1
+5,1
+6,1
+7,1
+8,1
+9,1
+10,1
+11,1
+12,1
+13,1
+14,1
+15,1
+16,1
+17,1
+18,1
+19,1
+20,1
+21,1
+22,1
+23,1
+24,1
+25,1
+26,1
+27,1
+28,1
+29,1
+30,1
+31,1
+32,1
+33,1
+34,1
+35,1
+36,1
+37,1
+38,1
+39,1
+40,1
+41,1
+42,1
+43,1
+44,1
+45,1
+46,1
+47,1
+48,1
+49,1
+50,1
+51,1
+52,1
+53,1
+54,1
+55,1
+56,1
+57,1
+58,1
+59,1
+60,1
+61,1
+62,1
+63,1
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 2:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,1
+1,1
+2,1
+3,1
+4,1
+5,1
+6,1
+7,1
+8,1
+9,1
+10,1
+11,1
+12,1
+13,1
+14,1
+15,1
+16,1
+17,1
+18,1
+19,1
+20,1
+21,1
+22,1
+23,1
+24,1
+25,1
+26,1
+27,1
+28,1
+29,1
+30,1
+31,1
+32,1
+33,1
+34,1
+35,1
+36,1
+37,1
+38,1
+39,1
+40,1
+41,1
+42,1
+43,1
+44,1
+45,1
+46,1
+47,1
+48,1
+49,1
+50,1
+51,1
+52,1
+53,1
+54,1
+55,1
+56,1
+57,1
+58,1
+59,1
+60,1
+61,1
+62,1
+63,1
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 3:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,1
+1,1
+2,1
+3,1
+4,1
+5,1
+6,1
+7,1
+8,1
+9,1
+10,1
+11,1
+12,1
+13,1
+14,1
+15,1
+16,1
+17,1
+18,1
+19,1
+20,1
+21,1
+22,1
+23,1
+24,1
+25,1
+26,1
+27,1
+28,1
+29,1
+30,1
+31,1
+32,1
+33,1
+34,1
+35,1
+36,1
+37,1
+38,1
+39,1
+40,1
+41,1
+42,1
+43,1
+44,1
+45,1
+46,1
+47,1
+48,1
+49,1
+50,1
+51,1
+52,1
+53,1
+54,1
+55,1
+56,1
+57,1
+58,1
+59,1
+60,1
+61,1
+62,1
+63,1
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 4:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 5:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 6:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 7:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+----------------------------------------
+[bitsimd_v_ap:int32:sub:3] End  -- Succeeded
+[bitsimd_v_ap:int32:mul:4] Start
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :       1056       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :        528       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :       1024       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         32       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :        992       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :       3664       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 1056, 528, 2080
+        Num Activate, Precharge : 1584, 1584
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -2059,11 +2168,34 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:mul:4] End  -- Succeeded
-[bitsimd_v:int32:div:5] Start
+[bitsimd_v_ap:int32:mul:4] End  -- Succeeded
+[bitsimd_v_ap:int32:div:5] Start
 BS-INFO: Allocate 64 temporary rows
 BS-INFO: Allocate 96 temporary rows
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :       3076       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :       1709       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.and :         96       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :        564       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :       1457       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         67       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :       4357       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :      11326       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 3076, 1709, 6541
+        Num Activate, Precharge : 4785, 4785
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -3149,9 +3281,29 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:div:5] End  -- Succeeded
-[bitsimd_v:int32:and:6] Start
+[bitsimd_v_ap:int32:div:5] End  -- Succeeded
+[bitsimd_v_ap:int32:and:6] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.and :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         32       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        160       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 64
+        Num Activate, Precharge : 96, 96
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -3609,9 +3761,30 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:and:6] End  -- Succeeded
-[bitsimd_v:int32:or:7] Start
+[bitsimd_v_ap:int32:and:6] End  -- Succeeded
+[bitsimd_v_ap:int32:or:7] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :          1       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        161       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 65
+        Num Activate, Precharge : 96, 96
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -4069,9 +4242,30 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:or:7] End  -- Succeeded
-[bitsimd_v:int32:xor:8] Start
+[bitsimd_v_ap:int32:or:7] End  -- Succeeded
+[bitsimd_v_ap:int32:xor:8] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :          1       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         64       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        193       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 97
+        Num Activate, Precharge : 96, 96
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -4529,9 +4723,29 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:xor:8] End  -- Succeeded
-[bitsimd_v:int32:xnor:9] Start
+[bitsimd_v_ap:int32:xor:8] End  -- Succeeded
+[bitsimd_v_ap:int32:xnor:9] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         32       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         32       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        160       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 64
+        Num Activate, Precharge : 96, 96
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -4989,9 +5203,31 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:xnor:9] End  -- Succeeded
-[bitsimd_v:int32:gt:10] Start
+[bitsimd_v_ap:int32:xnor:9] End  -- Succeeded
+[bitsimd_v_ap:int32:gt:10] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :          1       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :          3       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         94       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        226       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 130
+        Num Activate, Precharge : 96, 96
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -5449,9 +5685,31 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:gt:10] End  -- Succeeded
-[bitsimd_v:int32:lt:11] Start
+[bitsimd_v_ap:int32:gt:10] End  -- Succeeded
+[bitsimd_v_ap:int32:lt:11] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :          1       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :          3       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         94       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        226       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 130
+        Num Activate, Precharge : 96, 96
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -5909,9 +6167,31 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:lt:11] End  -- Succeeded
-[bitsimd_v:int32:eq:12] Start
+[bitsimd_v_ap:int32:lt:11] End  -- Succeeded
+[bitsimd_v_ap:int32:eq:12] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.and :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         33       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :          2       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         32       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        195       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 99
+        Num Activate, Precharge : 96, 96
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -6369,469 +6649,31 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:eq:12] End  -- Succeeded
-[bitsimd_v:int32:min:13] Start
+[bitsimd_v_ap:int32:eq:12] End  -- Succeeded
+[bitsimd_v_ap:int32:min:13] Start
 ----------------------------------------
-Memory Access Log for Core 0:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,2
-1,2
-2,2
-3,2
-4,2
-5,2
-6,2
-7,2
-8,2
-9,2
-10,2
-11,2
-12,2
-13,2
-14,2
-15,2
-16,2
-17,2
-18,2
-19,2
-20,2
-21,2
-22,2
-23,2
-24,2
-25,2
-26,2
-27,2
-28,2
-29,2
-30,2
-31,2
-32,2
-33,2
-34,2
-35,2
-36,2
-37,2
-38,2
-39,2
-40,2
-41,2
-42,2
-43,2
-44,2
-45,2
-46,2
-47,2
-48,2
-49,2
-50,2
-51,2
-52,2
-53,2
-54,2
-55,2
-56,2
-57,2
-58,2
-59,2
-60,2
-61,2
-62,2
-63,2
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 1:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,2
-1,2
-2,2
-3,2
-4,2
-5,2
-6,2
-7,2
-8,2
-9,2
-10,2
-11,2
-12,2
-13,2
-14,2
-15,2
-16,2
-17,2
-18,2
-19,2
-20,2
-21,2
-22,2
-23,2
-24,2
-25,2
-26,2
-27,2
-28,2
-29,2
-30,2
-31,2
-32,2
-33,2
-34,2
-35,2
-36,2
-37,2
-38,2
-39,2
-40,2
-41,2
-42,2
-43,2
-44,2
-45,2
-46,2
-47,2
-48,2
-49,2
-50,2
-51,2
-52,2
-53,2
-54,2
-55,2
-56,2
-57,2
-58,2
-59,2
-60,2
-61,2
-62,2
-63,2
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 2:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,2
-1,2
-2,2
-3,2
-4,2
-5,2
-6,2
-7,2
-8,2
-9,2
-10,2
-11,2
-12,2
-13,2
-14,2
-15,2
-16,2
-17,2
-18,2
-19,2
-20,2
-21,2
-22,2
-23,2
-24,2
-25,2
-26,2
-27,2
-28,2
-29,2
-30,2
-31,2
-32,2
-33,2
-34,2
-35,2
-36,2
-37,2
-38,2
-39,2
-40,2
-41,2
-42,2
-43,2
-44,2
-45,2
-46,2
-47,2
-48,2
-49,2
-50,2
-51,2
-52,2
-53,2
-54,2
-55,2
-56,2
-57,2
-58,2
-59,2
-60,2
-61,2
-62,2
-63,2
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 3:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,2
-1,2
-2,2
-3,2
-4,2
-5,2
-6,2
-7,2
-8,2
-9,2
-10,2
-11,2
-12,2
-13,2
-14,2
-15,2
-16,2
-17,2
-18,2
-19,2
-20,2
-21,2
-22,2
-23,2
-24,2
-25,2
-26,2
-27,2
-28,2
-29,2
-30,2
-31,2
-32,2
-33,2
-34,2
-35,2
-36,2
-37,2
-38,2
-39,2
-40,2
-41,2
-42,2
-43,2
-44,2
-45,2
-46,2
-47,2
-48,2
-49,2
-50,2
-51,2
-52,2
-53,2
-54,2
-55,2
-56,2
-57,2
-58,2
-59,2
-60,2
-61,2
-62,2
-63,2
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 4:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 5:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 6:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 7:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-----------------------------------------
-[bitsimd_v:int32:min:13] End  -- Succeeded
-[bitsimd_v:int32:max:14] Start
-----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :        128       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         33       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         64       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :          2       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         94       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        353       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 128, 32, 193
+        Num Activate, Precharge : 160, 160
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -7289,9 +7131,512 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:max:14] End  -- Succeeded
-[bitsimd_v:int32:add_scalar:15] Start
+[bitsimd_v_ap:int32:min:13] End  -- Succeeded
+[bitsimd_v_ap:int32:max:14] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :        128       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         33       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         64       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :          2       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         94       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        353       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 128, 32, 193
+        Num Activate, Precharge : 160, 160
+Memory Access Log for Core 0:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,2
+1,2
+2,2
+3,2
+4,2
+5,2
+6,2
+7,2
+8,2
+9,2
+10,2
+11,2
+12,2
+13,2
+14,2
+15,2
+16,2
+17,2
+18,2
+19,2
+20,2
+21,2
+22,2
+23,2
+24,2
+25,2
+26,2
+27,2
+28,2
+29,2
+30,2
+31,2
+32,2
+33,2
+34,2
+35,2
+36,2
+37,2
+38,2
+39,2
+40,2
+41,2
+42,2
+43,2
+44,2
+45,2
+46,2
+47,2
+48,2
+49,2
+50,2
+51,2
+52,2
+53,2
+54,2
+55,2
+56,2
+57,2
+58,2
+59,2
+60,2
+61,2
+62,2
+63,2
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 1:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,2
+1,2
+2,2
+3,2
+4,2
+5,2
+6,2
+7,2
+8,2
+9,2
+10,2
+11,2
+12,2
+13,2
+14,2
+15,2
+16,2
+17,2
+18,2
+19,2
+20,2
+21,2
+22,2
+23,2
+24,2
+25,2
+26,2
+27,2
+28,2
+29,2
+30,2
+31,2
+32,2
+33,2
+34,2
+35,2
+36,2
+37,2
+38,2
+39,2
+40,2
+41,2
+42,2
+43,2
+44,2
+45,2
+46,2
+47,2
+48,2
+49,2
+50,2
+51,2
+52,2
+53,2
+54,2
+55,2
+56,2
+57,2
+58,2
+59,2
+60,2
+61,2
+62,2
+63,2
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 2:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,2
+1,2
+2,2
+3,2
+4,2
+5,2
+6,2
+7,2
+8,2
+9,2
+10,2
+11,2
+12,2
+13,2
+14,2
+15,2
+16,2
+17,2
+18,2
+19,2
+20,2
+21,2
+22,2
+23,2
+24,2
+25,2
+26,2
+27,2
+28,2
+29,2
+30,2
+31,2
+32,2
+33,2
+34,2
+35,2
+36,2
+37,2
+38,2
+39,2
+40,2
+41,2
+42,2
+43,2
+44,2
+45,2
+46,2
+47,2
+48,2
+49,2
+50,2
+51,2
+52,2
+53,2
+54,2
+55,2
+56,2
+57,2
+58,2
+59,2
+60,2
+61,2
+62,2
+63,2
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 3:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,2
+1,2
+2,2
+3,2
+4,2
+5,2
+6,2
+7,2
+8,2
+9,2
+10,2
+11,2
+12,2
+13,2
+14,2
+15,2
+16,2
+17,2
+18,2
+19,2
+20,2
+21,2
+22,2
+23,2
+24,2
+25,2
+26,2
+27,2
+28,2
+29,2
+30,2
+31,2
+32,2
+33,2
+34,2
+35,2
+36,2
+37,2
+38,2
+39,2
+40,2
+41,2
+42,2
+43,2
+44,2
+45,2
+46,2
+47,2
+48,2
+49,2
+50,2
+51,2
+52,2
+53,2
+54,2
+55,2
+56,2
+57,2
+58,2
+59,2
+60,2
+61,2
+62,2
+63,2
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 4:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 5:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 6:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 7:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+----------------------------------------
+[bitsimd_v_ap:int32:max:14] End  -- Succeeded
+[bitsimd_v_ap:int32:add_scalar:15] Start
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         32       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         33       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         64       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        193       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 129
+        Num Activate, Precharge : 64, 64
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -7621,9 +7966,30 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:add_scalar:15] End  -- Succeeded
-[bitsimd_v:int32:sub_scalar:16] Start
+[bitsimd_v_ap:int32:add_scalar:15] End  -- Succeeded
+[bitsimd_v_ap:int32:sub_scalar:16] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         32       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         33       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         64       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        193       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 129
+        Num Activate, Precharge : 64, 64
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -7953,9 +8319,31 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:sub_scalar:16] End  -- Succeeded
-[bitsimd_v:int32:mul_scalar:17] Start
+[bitsimd_v_ap:int32:sub_scalar:16] End  -- Succeeded
+[bitsimd_v_ap:int32:mul_scalar:17] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :        528       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :        528       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :       1024       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :        560       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :        992       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :       3664       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 528, 528, 2608
+        Num Activate, Precharge : 1056, 1056
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -8285,11 +8673,34 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:mul_scalar:17] End  -- Succeeded
-[bitsimd_v:int32:div_scalar:18] Start
+[bitsimd_v_ap:int32:mul_scalar:17] End  -- Succeeded
+[bitsimd_v_ap:int32:div_scalar:18] Start
 BS-INFO: Allocate 64 temporary rows
 BS-INFO: Allocate 96 temporary rows
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :       2114       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :       1741       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.and :         96       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :        564       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :       1457       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :       1061       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :       4357       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :      11390       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 2114, 1741, 7535
+        Num Activate, Precharge : 3855, 3855
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -9247,9 +9658,30 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:div_scalar:18] End  -- Succeeded
-[bitsimd_v:int32:and_scalar:19] Start
+[bitsimd_v_ap:int32:div_scalar:18] End  -- Succeeded
+[bitsimd_v_ap:int32:and_scalar:19] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         32       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.and :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         32       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        160       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 96
+        Num Activate, Precharge : 64, 64
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -9579,9 +10011,30 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:and_scalar:19] End  -- Succeeded
-[bitsimd_v:int32:or_scalar:20] Start
+[bitsimd_v_ap:int32:and_scalar:19] End  -- Succeeded
+[bitsimd_v_ap:int32:or_scalar:20] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         32       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         33       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        161       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 97
+        Num Activate, Precharge : 64, 64
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -9911,9 +10364,30 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:or_scalar:20] End  -- Succeeded
-[bitsimd_v:int32:xor_scalar:21] Start
+[bitsimd_v_ap:int32:or_scalar:20] End  -- Succeeded
+[bitsimd_v_ap:int32:xor_scalar:21] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         32       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         33       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         64       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        193       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 129
+        Num Activate, Precharge : 64, 64
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -10243,9 +10717,30 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:xor_scalar:21] End  -- Succeeded
-[bitsimd_v:int32:xnor_scalar:22] Start
+[bitsimd_v_ap:int32:xor_scalar:21] End  -- Succeeded
+[bitsimd_v_ap:int32:xnor_scalar:22] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         32       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         32       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         32       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        160       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 96
+        Num Activate, Precharge : 64, 64
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -10575,9 +11070,31 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:xnor_scalar:22] End  -- Succeeded
-[bitsimd_v:int32:gt_scalar:23] Start
+[bitsimd_v_ap:int32:xnor_scalar:22] End  -- Succeeded
+[bitsimd_v_ap:int32:gt_scalar:23] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         32       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :          1       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         35       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         94       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        226       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 162
+        Num Activate, Precharge : 64, 64
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -10907,9 +11424,31 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:gt_scalar:23] End  -- Succeeded
-[bitsimd_v:int32:lt_scalar:24] Start
+[bitsimd_v_ap:int32:gt_scalar:23] End  -- Succeeded
+[bitsimd_v_ap:int32:lt_scalar:24] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         32       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :          1       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         35       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         94       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        226       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 162
+        Num Activate, Precharge : 64, 64
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -11239,9 +11778,31 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:lt_scalar:24] End  -- Succeeded
-[bitsimd_v:int32:eq_scalar:25] Start
+[bitsimd_v_ap:int32:lt_scalar:24] End  -- Succeeded
+[bitsimd_v_ap:int32:eq_scalar:25] Start
 ----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         32       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.and :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         33       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         34       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         32       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        195       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 131
+        Num Activate, Precharge : 64, 64
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -11571,341 +12132,31 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:eq_scalar:25] End  -- Succeeded
-[bitsimd_v:int32:min_scalar:26] Start
+[bitsimd_v_ap:int32:eq_scalar:25] End  -- Succeeded
+[bitsimd_v_ap:int32:min_scalar:26] Start
 ----------------------------------------
-Memory Access Log for Core 0:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,2
-1,2
-2,2
-3,2
-4,2
-5,2
-6,2
-7,2
-8,2
-9,2
-10,2
-11,2
-12,2
-13,2
-14,2
-15,2
-16,2
-17,2
-18,2
-19,2
-20,2
-21,2
-22,2
-23,2
-24,2
-25,2
-26,2
-27,2
-28,2
-29,2
-30,2
-31,2
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 1:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,2
-1,2
-2,2
-3,2
-4,2
-5,2
-6,2
-7,2
-8,2
-9,2
-10,2
-11,2
-12,2
-13,2
-14,2
-15,2
-16,2
-17,2
-18,2
-19,2
-20,2
-21,2
-22,2
-23,2
-24,2
-25,2
-26,2
-27,2
-28,2
-29,2
-30,2
-31,2
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 2:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,2
-1,2
-2,2
-3,2
-4,2
-5,2
-6,2
-7,2
-8,2
-9,2
-10,2
-11,2
-12,2
-13,2
-14,2
-15,2
-16,2
-17,2
-18,2
-19,2
-20,2
-21,2
-22,2
-23,2
-24,2
-25,2
-26,2
-27,2
-28,2
-29,2
-30,2
-31,2
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 3:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-0,2
-1,2
-2,2
-3,2
-4,2
-5,2
-6,2
-7,2
-8,2
-9,2
-10,2
-11,2
-12,2
-13,2
-14,2
-15,2
-16,2
-17,2
-18,2
-19,2
-20,2
-21,2
-22,2
-23,2
-24,2
-25,2
-26,2
-27,2
-28,2
-29,2
-30,2
-31,2
-128,1
-129,1
-130,1
-131,1
-132,1
-133,1
-134,1
-135,1
-136,1
-137,1
-138,1
-139,1
-140,1
-141,1
-142,1
-143,1
-144,1
-145,1
-146,1
-147,1
-148,1
-149,1
-150,1
-151,1
-152,1
-153,1
-154,1
-155,1
-156,1
-157,1
-158,1
-159,1
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 4:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 5:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 6:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-Memory Access Log for Core 7:
-
-Recorded Row Memory Accesses (CSV):
-RowIndex,AccessCount
-
-Recorded Column Memory Accesses (CSV):
-ColIndex,AccessCount
-
-
-----------------------------------------
-[bitsimd_v:int32:min_scalar:26] End  -- Succeeded
-[bitsimd_v:int32:max_scalar:27] Start
-----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         33       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         64       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         66       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         94       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        353       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 257
+        Num Activate, Precharge : 96, 96
 Memory Access Log for Core 0:
 
 Recorded Row Memory Accesses (CSV):
@@ -12235,11 +12486,365 @@ ColIndex,AccessCount
 
 
 ----------------------------------------
-[bitsimd_v:int32:max_scalar:27] End  -- Succeeded
-INFO: Bit-serial micro-programs for [bitsimd_v:int32] 28 / 28 passed
-INFO: Bit Serial Performance Modeling for bitsimd_v -- Succeed
+[bitsimd_v_ap:int32:min_scalar:26] End  -- Succeeded
+[bitsimd_v_ap:int32:max_scalar:27] Start
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_V_AP
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_V_AP
+ Rank, Bank, Subarray, Row, Col : 1, 1, 16, 8192, 1024
+            Number of PIM Cores : 8
+        Number of Rows per Core : 16384
+        Number of Cols per Core : 1024
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)      %R      %W      %L
+                                        row_r :         64       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         33       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.sel :         64       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.set :         66       0.000000       0.000000    0.00    0.00    0.00
+                                    rreg.xnor :         94       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        353       0.000000       0.000000    0.00    0.00    0.00
+         Num Read, Write, Logic : 64, 32, 257
+        Num Activate, Precharge : 96, 96
+Memory Access Log for Core 0:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,2
+1,2
+2,2
+3,2
+4,2
+5,2
+6,2
+7,2
+8,2
+9,2
+10,2
+11,2
+12,2
+13,2
+14,2
+15,2
+16,2
+17,2
+18,2
+19,2
+20,2
+21,2
+22,2
+23,2
+24,2
+25,2
+26,2
+27,2
+28,2
+29,2
+30,2
+31,2
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 1:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,2
+1,2
+2,2
+3,2
+4,2
+5,2
+6,2
+7,2
+8,2
+9,2
+10,2
+11,2
+12,2
+13,2
+14,2
+15,2
+16,2
+17,2
+18,2
+19,2
+20,2
+21,2
+22,2
+23,2
+24,2
+25,2
+26,2
+27,2
+28,2
+29,2
+30,2
+31,2
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 2:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,2
+1,2
+2,2
+3,2
+4,2
+5,2
+6,2
+7,2
+8,2
+9,2
+10,2
+11,2
+12,2
+13,2
+14,2
+15,2
+16,2
+17,2
+18,2
+19,2
+20,2
+21,2
+22,2
+23,2
+24,2
+25,2
+26,2
+27,2
+28,2
+29,2
+30,2
+31,2
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 3:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+0,2
+1,2
+2,2
+3,2
+4,2
+5,2
+6,2
+7,2
+8,2
+9,2
+10,2
+11,2
+12,2
+13,2
+14,2
+15,2
+16,2
+17,2
+18,2
+19,2
+20,2
+21,2
+22,2
+23,2
+24,2
+25,2
+26,2
+27,2
+28,2
+29,2
+30,2
+31,2
+128,1
+129,1
+130,1
+131,1
+132,1
+133,1
+134,1
+135,1
+136,1
+137,1
+138,1
+139,1
+140,1
+141,1
+142,1
+143,1
+144,1
+145,1
+146,1
+147,1
+148,1
+149,1
+150,1
+151,1
+152,1
+153,1
+154,1
+155,1
+156,1
+157,1
+158,1
+159,1
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 4:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 5:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 6:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+Memory Access Log for Core 7:
+
+Recorded Row Memory Accesses (CSV):
+RowIndex,AccessCount
+
+Recorded Column Memory Accesses (CSV):
+ColIndex,AccessCount
+
+
+----------------------------------------
+[bitsimd_v_ap:int32:max_scalar:27] End  -- Succeeded
+INFO: Bit-serial micro-programs for [bitsimd_v_ap:int32] 28 / 28 passed
+INFO: Bit Serial Performance Modeling for bitsimd_v_ap -- Succeed
 ----------------------------------------
 Summary (passed / total):
-    bitsimd_v
+    bitsimd_v_ap
         int32 : 28 / 28
 ----------------------------------------
