@@ -4,14 +4,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sys
 
-# Load the data
-file_path = sys.argv[1] # Make sure this file is in the same directory
+# Load the data file passed as command-line argument
+file_path = sys.argv[1]
 df = pd.read_csv(file_path, delim_whitespace=True)
 
-# Thresholds to evaluate
+# Define thresholds for coloring and lines
 thresholds = [2000, 2222, 4000]
 
-# Determine color for each bar
+# Determine color for each bar based on how many thresholds it passes
 def get_bar_color(value):
     passed = sum(value > t for t in thresholds)
     if passed == 3:
@@ -23,30 +23,31 @@ def get_bar_color(value):
     else:
         return 'lightgray'
 
-# Apply color mapping
-bar_colors = df["Accesses_per_RI"].apply(get_bar_color)
+# Apply color mapping to each command
+bar_colors = df["Accesses_per_ms"].apply(get_bar_color)
 
-# Create the plot
+# Create the bar plot
 plt.figure(figsize=(14, 6))
-plt.bar(df["Command"], df["Accesses_per_RI"], color=bar_colors)
+plt.bar(df["Command"], df["Accesses_per_ms"], color=bar_colors)
 
-# Add plot labels and title
-plt.xlabel("PIM op Command")
-plt.ylabel("Accesses per Row Interval")
+# Add labels and title
+plt.xlabel("PIM Command")
+plt.ylabel("Accesses per ms")
+plt.title("Memory Accesses per Millisecond for Each PIM Command")
 plt.xticks(rotation=90)
 plt.grid(axis='y')
 
-# Add horizontal reference lines
-plt.axhline(y=2000, color='red', linestyle='--', label='y = 2000')
-plt.axhline(y=2222, color='green', linestyle='--', label='y = 2222')
-plt.axhline(y=4000, color='blue', linestyle='--', label='y = 4000')
+# # Add horizontal reference lines
+# plt.axhline(y=2000, color='red', linestyle='--', label='2000 accesses/ms')
+# plt.axhline(y=2222, color='green', linestyle='--', label='2222 accesses/ms')
+# plt.axhline(y=4000, color='blue', linestyle='--', label='4000 accesses/ms')
 
-# Add legend
-plt.legend()
+# # Add legend
+# plt.legend()
 
-# Improve layout
+# Layout adjustment
 plt.tight_layout()
 
-# Save as PDF
-plt.savefig("Accesses_per_RI_Histogram_colored.pdf", format="pdf")
-print("Saved: Accesses_per_RI_Histogram_colored.pdf")
+# Save to PDF
+plt.savefig("Accesses_per_ms_Histogram_colored.pdf", format="pdf")
+print("Saved: Accesses_per_ms_Histogram_colored.pdf")
