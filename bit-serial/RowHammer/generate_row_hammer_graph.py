@@ -31,9 +31,8 @@ plt.figure(figsize=(14, 6))
 plt.bar(df["Command"], df["Accesses_per_RI"], color=bar_colors)
 
 # Add plot labels and title
-plt.xlabel("PIM Command")
-plt.ylabel("Accesses per RI")
-plt.title("Memory Accesses per RI for Each PIM Command (Threshold Colored)")
+plt.xlabel("PIM op Command")
+plt.ylabel("Accesses per Row Interval")
 plt.xticks(rotation=90)
 plt.grid(axis='y')
 
