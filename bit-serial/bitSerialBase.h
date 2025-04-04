@@ -103,6 +103,7 @@ protected:
 
   template <typename T> std::vector<T> getRandInt(uint64_t numElements, T min, T max, bool allowZero = true);
   template <typename T> std::vector<T> getRandFp(uint64_t numElements, T min, T max, bool allowZero = true);
+  // bool testBool(const std::string& category, PimDataType dataType);
   template <typename T> bool testInt(const std::string& category, PimDataType dataType);
   template <typename T> bool testFp(const std::string& category, PimDataType dataType);
 
@@ -153,6 +154,112 @@ bitSerialBase::getRandFp(uint64_t numElements, T min, T max, bool allowZero)
   }
   return vec;
 }
+
+
+// bool bitSerialBase::testBool(const std::string& category, PimDataType dataType)
+// {
+//   int numPassed = 0;
+//   uint64_t numElements = 4000;
+//   unsigned numBits = 1;
+
+//   std::cout << "================================================================" << std::endl;
+//   std::cout << "INFO: Evaluating bit-serial micro-programs for [" << m_deviceName << ":" << category << "]" << std::endl;
+//   std::cout << "================================================================" << std::endl;
+
+//   // allocate host vectors
+//   std::vector<uint8_t> vecSrc1 = getRandInt<uint8_t>(numElements, 0, 1);
+//   std::vector<uint8_t> vecSrc2 = getRandInt<uint8_t>(numElements, 0, 1);
+//   std::vector<uint8_t> vecDest(numElements);
+//   std::vector<uint8_t> vecDestVerify(numElements);
+//   std::vector<uint8_t> vecSrc1Verify(numElements);
+//   std::vector<uint8_t> vecSrc2Verify(numElements);
+
+//   // allocate PIM objects
+//   PimObjId src1 = pimAlloc(PIM_ALLOC_V1, numElements, PIM_BOOL);
+//   PimObjId src2 = pimAllocAssociated(src1, PIM_BOOL);
+//   PimObjId dest1 = pimAllocAssociated(src1, PIM_BOOL);
+
+//   const std::vector<std::string> testNames = { "and", "or", "xor", "xnor" };
+//   const int numTests = static_cast<int>(testNames.size());
+
+//   for (int testId = 0; testId < numTests; ++testId) {
+//     std::string tag = "[" + m_deviceName + ":" + category + ":" + testNames[testId] + ":" + std::to_string(testId) + "]";
+//     bool ok = true;
+//     std::cout << tag << " Start" << std::endl;
+
+//     // Load data
+//     if (dataType != PIM_BOOL) {
+//       pimCopyHostToDevice((void*)vecSrc2.data(), src2);
+//       src1 = src2;
+//       dest1 = src2;
+//     } else {
+//       pimCopyHostToDevice((void*)vecSrc1.data(), src1);
+//       pimCopyHostToDevice((void*)vecSrc2.data(), src2);
+//     }
+
+//     // Run bit-serial Boolean kernel
+//     switch (testId) {
+//       case 0: bitSerialIntAnd(numBits, src1, src2, dest1); break;
+//       case 1: bitSerialIntOr(numBits, src1, src2, dest1); break;
+//       case 2: bitSerialIntXor(numBits, src1, src2, dest1); break;
+//       case 3: bitSerialIntXnor(numBits, src1, src2, dest1); break;
+//       default:
+//         std::cout << tag << " Error: Test ID not supported" << std::endl;
+//         return false;
+//     }
+
+//     // Get result
+//     pimCopyDeviceToHost(dest1, (void*)vecDestVerify.data());
+
+//     // Software validation
+//     for (uint64_t i = 0; i < numElements; ++i) {
+//       uint8_t a = (dataType == PIM_BOOL ? vecSrc1[i] : vecSrc2[i]);
+//       uint8_t b = vecSrc2[i];
+//       switch (testId) {
+//         case 0: vecDest[i] = a & b; break;
+//         case 1: vecDest[i] = a | b; break;
+//         case 2: vecDest[i] = a ^ b; break;
+//         case 3: vecDest[i] = (a == b) ? 1 : 0; break;
+//       }
+//     }
+
+//     if (vecDest != vecDestVerify) {
+//       ok = false;
+//       std::cout << tag << " Error: Incorrect results !!!!!" << std::endl;
+
+//       for (uint64_t i = 0; i < std::min(numElements, uint64_t(3)); ++i) {
+//         if (vecDest[i] != vecDestVerify[i]) {
+//           std::cout << "  Idx " << i << " Src1 " << int(vecSrc1[i]) << " Src2 " << int(vecSrc2[i])
+//                     << " Result " << int(vecDest[i]) << " Expected " << int(vecDestVerify[i]) << std::endl;
+//         }
+//       }
+//     }
+
+//     // Ensure input not corrupted (only for PIM_BOOL)
+//     if (dataType == PIM_BOOL) {
+//       pimCopyDeviceToHost(src1, (void*)vecSrc1Verify.data());
+//       pimCopyDeviceToHost(src2, (void*)vecSrc2Verify.data());
+//       if (vecSrc1 != vecSrc1Verify || vecSrc2 != vecSrc2Verify) {
+//         ok = false;
+//         std::cout << tag << " Error: Input modified !!!!!" << std::endl;
+//       }
+//     }
+
+//     std::cout << tag << " End " << (ok ? " -- Succeeded" : " -- Failed!") << std::endl;
+//     if (ok) {
+//       numPassed++;
+//     }
+//   }
+
+//   // Clean up
+//   pimFree(dest1);
+//   pimFree(src2);
+//   pimFree(src1);
+
+//   std::cout << "INFO: Bit-serial BOOL programs for [" << m_deviceName << ":" << category << "] " << numPassed << " / " << numTests << " passed" << std::endl;
+//   m_stats[category] = std::make_pair(numPassed, numTests);
+//   return numPassed == numTests;
+// }
 
 
 //! @brief  Test integer bit-serial micro-programs

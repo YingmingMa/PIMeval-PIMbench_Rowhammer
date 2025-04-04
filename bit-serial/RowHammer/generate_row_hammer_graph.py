@@ -44,17 +44,17 @@ plt.ylabel("Accesses per ms")
 plt.xticks(rotation=90)
 plt.grid(axis='y')
 
-# # Add horizontal reference lines
-# plt.axhline(y=2000, color='red', linestyle='--', label='2000 accesses/ms')
-# plt.axhline(y=2222, color='green', linestyle='--', label='2222 accesses/ms')
-# plt.axhline(y=4000, color='blue', linestyle='--', label='4000 accesses/ms')
+# Add horizontal reference lines
+plt.axhline(y=2000, color='red', linestyle='--', label='2000 accesses/ms')
+plt.axhline(y=2222, color='green', linestyle='--', label='2222 accesses/ms')
+plt.axhline(y=4000, color='blue', linestyle='--', label='4000 accesses/ms')
 
 # # Add legend
-# plt.legend()
+plt.legend()
 
 # Layout adjustment
 plt.tight_layout()
 
 # Save to PDF
-plt.savefig("Accesses_per_ms_Histogram_colored.pdf", format="pdf")
+plt.savefig("Accesses_per_ms_Histogram_colored_8.pdf", format="pdf")
 print("Saved: Accesses_per_ms_Histogram_colored.pdf")

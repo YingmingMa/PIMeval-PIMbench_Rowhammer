@@ -18,6 +18,7 @@ bitSerialMain::bitSerialMain()
     "simdram",
   };
   m_testList = {
+    // "bool",
     "int8",
     "int16",
     "int32",
@@ -79,7 +80,7 @@ int main()
 {
   bitSerialMain app;
   std::vector<std::string> devices = { "bitsimd_v_ap" };
-  std::vector<std::string> tests = { "int32" };
+  std::vector<std::string> tests = { "int8"};
   app.runTests(devices, tests);
   return 0;
 }

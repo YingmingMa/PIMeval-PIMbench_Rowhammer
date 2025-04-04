@@ -32,6 +32,9 @@ bitSerialBase::runTests(const std::vector<std::string>& testList)
   createDevice();
 
   for (const auto& testName : testList) {
+    // if(testName == "bool") {
+    //   ok &= testBool(testName, PIM_BOOL);
+    // } else 
     if (testName == "int8") {
       ok &= testInt<int8_t>(testName, PIM_INT8);
     } else if (testName == "int16") {
