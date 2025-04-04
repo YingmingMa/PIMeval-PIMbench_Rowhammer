@@ -5,66 +5,65 @@ import re
 import sys
 import pandas as pd
 from collections import defaultdict
+from pathlib import Path
 
-# File paths from command-line arguments
-execution_stats_path = sys.argv[1]
-row_access_path = sys.argv[2]
+if len(sys.argv) != 2:
+    print("Usage:")
+    print("./bitSerial.out > result.txt")
+    print("./parseRowHammer.py result.txt > rowhammer.txt")
+    print("./rowAccessperSecond.py rowhammer.txt > mostAccessperRI.txt")
+    exit()
 
-# Patterns
+# Load file content
+file_path = sys.argv[1]
+with open(file_path, "r") as f:
+    lines = f.readlines()
+
+# Regular expressions for parsing
 command_pattern = re.compile(r"PimCmdEnum::(\w+)")
+time_pattern = re.compile(r"Estimated Time, ([\d.]+) ns")
 core_row_pattern = re.compile(r"{ Core (\d+) , { Row: \[(.*?)\]")
 row_access_pattern = re.compile(r"(\d+):(\d+)")
 
-# Step 1: Parse row_access_path to get the most accessed row count per command
-command_max_access = {}
+# Parse the file
+command_data = {}
+current_command = None
 
-with open(row_access_path, "r") as f:
-    lines = f.readlines()
+for line in lines:
+    cmd_match = command_pattern.search(line)
+    if cmd_match:
+        current_command = cmd_match.group(1)
+        command_data[current_command] = {"time_ns": 0.0, "row_accesses": defaultdict(list)}
 
-    current_command = None
-    for line in lines:
-        cmd_match = command_pattern.search(line)
-        if cmd_match:
-            current_command = cmd_match.group(1)
-            command_max_access[current_command] = []
+    if current_command:
+        time_match = time_pattern.search(line)
+        if time_match:
+            command_data[current_command]["time_ns"] = float(time_match.group(1))
 
-        if current_command:
-            core_match = core_row_pattern.search(line)
-            if core_match:
-                row_data = core_match.group(2)
-                row_access_counts = defaultdict(int)
-                for row, count in row_access_pattern.findall(row_data):
-                    row_access_counts[int(row)] += int(count)
-                if row_access_counts:
-                    max_access = max(row_access_counts.values())
-                    command_max_access[current_command].append(max_access)
+        core_match = core_row_pattern.search(line)
+        if core_match:
+            core_id = int(core_match.group(1))
+            row_data = core_match.group(2)
+            row_access_counts = defaultdict(int)
+            for row, count in row_access_pattern.findall(row_data):
+                row_access_counts[int(row)] += int(count)
+            command_data[current_command]["row_accesses"][core_id].append(row_access_counts)
 
-# Calculate final access count per command (the highest access count among all cores)
-access_counts = {
-    cmd: max(accesses) if accesses else 0
-    for cmd, accesses in command_max_access.items()
-}
-
-# Step 2: Parse execution stats to get runtime per command
-execution_times = {}
-with open(execution_stats_path, "r") as f:
-    for line in f:
-        if ".int32.v" in line: #todo: can make more generic thus can parse other data
-            parts = re.split(r'\s{2,}', line.strip())
-            if len(parts) >= 4:
-                name = parts[0].split(".")[0].upper()
-                runtime_ms = float(parts[2])
-                execution_times[name] = runtime_ms
-
-# Step 3: Combine and calculate access rate
+# Aggregate results
 results = []
-for command, access_count in access_counts.items():
-    runtime = execution_times.get(command, None)
-    if runtime is not None and runtime > 0:
-        rate = access_count / runtime
-        rate64 = rate*64 #todo: make the 64 modifieable
-        results.append((command, access_count, runtime, rate, rate64))
+for command, data in command_data.items():
+    max_access = 0
+    for core_data in data["row_accesses"].values():
+        for row_dict in core_data:
+            if row_dict:
+                max_access = max(max_access, max(row_dict.values()))
+    time_ns = data["time_ns"]
+    time_ms = time_ns / 1e6 if time_ns else 0
+    rate = max_access / time_ms if time_ms else 0
+    rate64 = rate * 64
+    results.append((command, max_access, time_ms, rate, rate64))
 
-# Step 4: Output
+# Create DataFrame
 df = pd.DataFrame(results, columns=["Command", "Max_Row_Access", "Runtime_ms", "Accesses_per_ms", "Accesses_per_RI"])
 print(df.to_string(index=False))
+

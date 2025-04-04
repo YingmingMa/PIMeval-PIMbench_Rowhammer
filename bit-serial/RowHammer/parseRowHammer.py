@@ -8,7 +8,7 @@ import sys
 if len(sys.argv) != 2:
     print("Usage:")
     print("./bitSerial.out > result.txt")
-    print("./parseRowHammer.py result.txt")
+    print("./parseRowHammer.py result.txt > rowhammer.txt")
     exit()
 
 filename = sys.argv[1]
@@ -23,9 +23,36 @@ core_data = {}  # will map core number (string) to {"row": list of (index, count
 current_core = None
 mode = None  # "row" or "col"
 
+# Timing-related variables to compute execution time
+timing_info = {
+    "row_read_ns": 0.0,
+    "row_write_ns": 0.0,
+    "tccd_ns": 0.0,
+    "num_read": 0,
+    "num_write": 0,
+    "num_logic": 0
+}
+
 with open(filename, 'r') as f:
+    print("INFO: Bit-serial Micro-program Performance Results")
     for line in f:
         line = line.strip()
+
+         # Parse timing values from header
+        if "Row Read (ns)" in line:
+            timing_info["row_read_ns"] = float(line.split(":")[1])
+        elif "Row Write (ns)" in line:
+            timing_info["row_write_ns"] = float(line.split(":")[1])
+        elif "tCCD (ns)" in line:
+            timing_info["tccd_ns"] = float(line.split(":")[1])
+
+        # Parse operation counts from final summary line
+        elif "Num Read, Write, Logic" in line:
+            parts = re.findall(r'\d+', line)
+            if len(parts) == 3:
+                timing_info["num_read"] = int(parts[0])
+                timing_info["num_write"] = int(parts[1])
+                timing_info["num_logic"] = int(parts[2])
         
         # Look for test-case start header, e.g. "[bitsimd_v:int32:abs:0] Start"
         match_start = re.match(r'\[(.*):(.*):(.*):(.*)\]\s+Start', line)
@@ -76,14 +103,20 @@ with open(filename, 'r') as f:
         # Look for test-case end header, e.g. "[bitsimd_v:int32:abs:0] End"
         match_end = re.match(r'\[(.*):(.*):(.*):(.*)\]\s+End', line)
         if match_end:
-            # Output the collected data for this operation.
-            # Use a formatting similar to the sample snippet.
+            # Calculate execution time in nanoseconds
+            exec_time_ns = (
+                timing_info["row_read_ns"] * timing_info["num_read"] +
+                timing_info["row_write_ns"] * timing_info["num_write"] +
+                timing_info["tccd_ns"] * timing_info["num_logic"]
+            )
+
+            # Include exec time in comment for operation
             print("      { PimCmdEnum::%-13s { " % (op.upper() + ','))
-            # Loop over cores in numeric order.
+            print(f"           {{ Estimated Time, {exec_time_ns:.3f} ns }},")
+
+
             for core in sorted(core_data.keys(), key=lambda x: int(x)):
-                # Create a string with all row entries (format: index:count)
                 row_str = ", ".join(["%s:%s" % (idx, count) for idx, count in core_data[core]["row"]])
-                # Create a string with all column entries.
                 col_str = ", ".join(["%s:%s" % (idx, count) for idx, count in core_data[core]["col"]])
                 print("           { Core %-2s, { Row: [%s], Column: [%s] } }," % (core, row_str, col_str))
             print("      } },")

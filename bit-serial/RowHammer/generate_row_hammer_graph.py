@@ -4,6 +4,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sys
 
+if len(sys.argv) != 2:
+    print("Usage:")
+    print("./bitSerial.out > result.txt")
+    print("./parseRowHammer.py result.txt > rowhammer.txt")
+    print("./rowAccessperSecond.py rowhammer.txt > mostAccessperRI.txt")
+    print("./generate_row_hammer_graph.py mostAccessperRI.txt")
+    exit()
+
 # Load the data file passed as command-line argument
 file_path = sys.argv[1]
 df = pd.read_csv(file_path, delim_whitespace=True)
