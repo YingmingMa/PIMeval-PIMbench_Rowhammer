@@ -1,1 +1,0 @@
-INFO: Bit-serial Micro-program Performance Results

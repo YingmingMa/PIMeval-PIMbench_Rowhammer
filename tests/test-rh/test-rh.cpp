@@ -32,7 +32,7 @@ implReadRowOrScalar(PimObjId src, unsigned bitIdx, bool useScalar, uint64_t scal
   }
 }
 
-bool testRowHammer()
+bool testCommands(std::string InCommand)
 {
   unsigned numElements = 1000;
 
@@ -66,22 +66,29 @@ bool testRowHammer()
   status = pimCopyHostToDevice((void*)src3.data(), obj3);
   assert(status == PIM_OK);
 
-  int numBits = 32;
+  // int numBits = 32;
   bool useScalar = 0; 
-  uint64_t scalarVal = 32;
+  uint64_t scalarVal = 1;
 
-  // for (int i = 0; i < 10; ++i) {
-    pimOpSet(obj1, PIM_RREG_R1, 0);
-    for (int i = 0; i < numBits; ++i) {
-      pimOpReadRowToSa(obj1, i);
-      pimOpXor(obj1, PIM_RREG_SA, PIM_RREG_R1, PIM_RREG_R2);
-      implReadRowOrScalar(obj1, i, useScalar, scalarVal);
-      pimOpSel(obj1, PIM_RREG_R2, PIM_RREG_SA, PIM_RREG_R1, PIM_RREG_R1);
-      pimOpXor(obj1, PIM_RREG_R2, PIM_RREG_SA, PIM_RREG_SA);
-      pimOpWriteSaToRow(obj1, i);
-    }
-  // }
-
+  if (InCommand == "and"){
+    status = pimOpReadRowToSa(obj1, 0);
+    assert(status == PIM_OK);
+    status = pimOpMove(obj1, PIM_RREG_SA, PIM_RREG_R1);
+    assert(status == PIM_OK);
+    implReadRowOrScalar(obj1, 0, useScalar, scalarVal);
+    status = pimOpAnd(obj1, PIM_RREG_SA, PIM_RREG_R1, PIM_RREG_SA);
+    assert(status == PIM_OK);
+    status = pimOpWriteSaToRow(obj1, 0);
+    assert(status == PIM_OK);
+  }
+  if (InCommand == "xnor"){
+    pimOpReadRowToSa(obj1, 0);
+    pimOpMove(obj1, PIM_RREG_SA, PIM_RREG_R1);
+    implReadRowOrScalar(obj1, 0, useScalar, scalarVal);
+    pimOpXor(obj1, PIM_RREG_SA, PIM_RREG_R1, PIM_RREG_SA);
+    pimOpNot(obj1, PIM_RREG_SA, PIM_RREG_SA);
+    pimOpWriteSaToRow(obj1, 0);
+  }
   return true;
 }
 
@@ -95,13 +102,16 @@ int main()
     return 1;
   }
 
-  ok = testRowHammer();
+  ok = testCommands("and");
   if (!ok) {
     std::cout << "Test failed!" << std::endl;
     return 1;
   }
 
   pimShowStats();
-  std::cout << "All correct!" << std::endl;
+  pimResetStats();
+
+  testCommands("xnor");
+  pimShowStats();
   return 0;
 }

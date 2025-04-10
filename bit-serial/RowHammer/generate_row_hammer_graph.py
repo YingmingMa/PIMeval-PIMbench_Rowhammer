@@ -56,5 +56,5 @@ plt.legend()
 plt.tight_layout()
 
 # Save to PDF
-plt.savefig("Accesses_per_ms_Histogram_colored_8.pdf", format="pdf")
+plt.savefig("Accesses_per_ms_Histogram_colored_16.pdf", format="pdf")
 print("Saved: Accesses_per_ms_Histogram_colored.pdf")

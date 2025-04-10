@@ -1,0 +1,2 @@
+and: time: 145.5 ns, max access:1, perRI: 439862.543, same object: 1319587.629
+xnor: time: 148.5 ns, max access:1, perRI: 430976.431, same object: 1292929.293

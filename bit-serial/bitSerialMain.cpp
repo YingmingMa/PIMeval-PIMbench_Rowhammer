@@ -80,7 +80,7 @@ int main()
 {
   bitSerialMain app;
   std::vector<std::string> devices = { "bitsimd_v_ap" };
-  std::vector<std::string> tests = { "int8"};
+  std::vector<std::string> tests = { "int16"};
   app.runTests(devices, tests);
   return 0;
 }
