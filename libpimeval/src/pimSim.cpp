@@ -6,6 +6,7 @@
 
 #include "pimSim.h"
 #include "pimCmd.h"
+#include "pimCmdFuse.h"
 #include "pimParamsDram.h"
 #include "pimStats.h"
 #include "pimUtils.h"
@@ -871,6 +872,33 @@ pimSim::pimShiftBitsLeft(PimObjId src, PimObjId dest, unsigned shiftAmount)
   pimPerfMon perfMon("pimShiftBitsLeft");
   if (!isValidDevice()) { return false; }
   std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdFunc1>(PimCmdEnum::SHIFT_BITS_L, src, dest, shiftAmount);
+  return m_device->executeCmd(std::move(cmd));
+}
+
+bool 
+pimSim::pimAesSbox(PimObjId src, PimObjId dest, const std::vector<uint8_t>& lut)
+{
+  pimPerfMon perfMon("pimAesSbox");
+  if (!isValidDevice()) { return false; }
+  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdFunc1>(PimCmdEnum::AES_SBOX, src, dest, lut);
+  return m_device->executeCmd(std::move(cmd));
+}
+
+bool 
+pimSim::pimAesInverseSbox(PimObjId src, PimObjId dest, const std::vector<uint8_t>& lut)
+{
+  pimPerfMon perfMon("pimAesInverseSbox");
+  if (!isValidDevice()) { return false; }
+  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdFunc1>(PimCmdEnum::AES_INVERSE_SBOX, src, dest, lut);
+  return m_device->executeCmd(std::move(cmd));
+}
+
+bool
+pimSim::pimFuse(PimProg prog)
+{
+  pimPerfMon perfMon("pimFuse");
+  if (!isValidDevice()) { return false; }
+  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdFuse>(prog);
   return m_device->executeCmd(std::move(cmd));
 }
 
