@@ -23,9 +23,9 @@ pimStatsMgr::showStats() const
     showApiStats();
   }
   showDeviceParams();
-  // showCopyStats();
+  showCopyStats();
   showCmdStats();
-  showMemoryAccessStats();
+  // showMemoryAccessStats();
   std::printf("----------------------------------------\n");
 }
 
