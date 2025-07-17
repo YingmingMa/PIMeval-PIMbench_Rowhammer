@@ -99,6 +99,10 @@ pimCmd::getName(PimCmdEnum cmdType, const std::string& suffix)
     { PimCmdEnum::RREG_ROTATE_L, "rreg.rotate_l" },
     { PimCmdEnum::ROW_AP, "row_ap" },
     { PimCmdEnum::ROW_AAP, "row_aap" },
+    { PimCmdEnum::ROW_APP_AND, "row_app_and" },
+    { PimCmdEnum::ROW_APP_OR, "row_app_or" },
+    { PimCmdEnum::COL_SHIFT_R, "col.shift_r" },
+    { PimCmdEnum::COL_SHIFT_L, "col.shift_l" },
   };
   auto it = cmdNames.find(cmdType);
   return it != cmdNames.end() ? it->second + suffix : "unknown";
@@ -1738,6 +1742,102 @@ pimCmdAnalogAAP::printDebugInfo() const
   }
   std::printf("PIM-MicroOp: %s (#src = %lu, #dest = %lu, rows =%s)\n",
               getName().c_str(), m_srcRows.size(), m_destRows.size(), msg.c_str());
+}
+
+bool
+pimCmdAnalogAPP::execute()
+{
+  //todo: wrtie more detailed debug info
+  if (m_debugCmds) {
+    std::printf("PIM-MicroOp: BitSIMD-H %s\n", getName().c_str());
+  }
+
+  pimResMgr* resMgr = m_device->getResMgr();
+  const pimObjInfo& objSrc = resMgr->getObjInfo(m_srcRow.first);
+  
+  std::unordered_set<unsigned> visitedRows;
+  for (unsigned i = 0; i < objSrc.getRegions().size(); ++i) {
+    const pimRegion& srcRegion = objSrc.getRegions()[i];
+    PimCoreId coreId = srcRegion.getCoreId();
+    pimCore &core = m_device->getCore(coreId);
+
+    unsigned ofst = m_srcRow.second;
+    unsigned idx = objSrc.getRegions()[i].getRowIdx() + ofst;
+
+    core.readRow(idx);
+
+
+  }
+}
+
+//! @brief  Pim CMD: BitSIMD-H: row reg shift right/left by one step
+bool
+pimCmdColGrpOP::execute()
+{
+  if (m_debugCmds) {
+    std::printf("PIM-MicroOp: BitSIMD-H %s (obj-id %d )\n", getName().c_str(), m_objId);
+  }
+
+  pimResMgr* resMgr = m_device->getResMgr();
+  const pimObjInfo& objSrc = resMgr->getObjInfo(m_objId);
+  //todo: get exact number of bits with padding
+  PimDataType dataType = objSrc.getDataType();
+  unsigned ActualSize = objSrc.getBitsPerElement(PimBitWidth::ACTUAL);
+  unsigned PaddedSize = objSrc.getBitsPerElement(PimBitWidth::PADDED);
+
+  if (m_cmdType == PimCmdEnum::COL_SHIFT_R) {  // Right Rotate
+    for (unsigned i = 0; i < objSrc.getRegions().size(); ++i) {
+      const pimRegion &srcRegion = objSrc.getRegions()[i];
+      PimCoreId coreId = srcRegion.getCoreId();
+      pimCore &core = m_device->getCore(coreId);
+      
+      std::vector<bool>& sa = core.getRowReg(PIM_RREG_SA);
+
+      size_t totalBits = sa.size();
+      size_t numColGrp = totalBits / PaddedSize;
+
+      //right shift logic
+      for (size_t ColGrp = 0; ColGrp < numColGrp; ++ColGrp) {
+          size_t start = ColGrp * PaddedSize;
+
+          for (size_t i = 0; i < ActualSize; ++i) {
+              size_t bitIdx = start + ActualSize - 1 - i;
+              bool current = sa[bitIdx];
+              sa[bitIdx] = (i == ActualSize - 1) ? false : sa[bitIdx - 1];
+          }
+      }
+
+      core.getRowReg(PIM_RREG_SA) = sa;
+    }
+  } else if (m_cmdType == PimCmdEnum::COL_SHIFT_L) {  // Left Rotate
+    for (unsigned i = 0; i < objSrc.getRegions().size(); ++i) {
+      const pimRegion &srcRegion = objSrc.getRegions()[i];
+      PimCoreId coreId = srcRegion.getCoreId();
+      pimCore &core = m_device->getCore(coreId);
+      
+      std::vector<bool>& sa = core.getRowReg(PIM_RREG_SA);
+
+      size_t totalBits = sa.size();
+      size_t numColGrp = totalBits / PaddedSize;
+
+      // Left shift logic
+      for (size_t ColGrp = 0; ColGrp < numColGrp; ++ColGrp) {
+          size_t start = ColGrp * PaddedSize;
+
+          for (size_t i = 0; i < ActualSize; ++i) {
+              size_t bitIdx = start + i;
+              sa[bitIdx] = (i == ActualSize - 1) ? false : sa[bitIdx + 1];
+          }
+      }
+
+      core.getRowReg(PIM_RREG_SA) = sa;
+    }
+  }
+
+  // Update stats
+  pimeval::perfEnergy prfEnrgy;
+  pimSim::get()->getStatsMgr()->recordCmd(getName(), prfEnrgy);
+  return true;
 }
 
 template class pimCmdReduction<int8_t>;

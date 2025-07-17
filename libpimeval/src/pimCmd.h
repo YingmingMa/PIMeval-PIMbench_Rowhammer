@@ -106,6 +106,11 @@ enum class PimCmdEnum {
   // SIMDRAM
   ROW_AP,
   ROW_AAP,
+  ROW_APP_AND,
+  ROW_APP_OR,
+  // H layout BitSerial micro ops
+  COL_SHIFT_R,
+  COL_SHIFT_L,
 };
 
 
@@ -649,5 +654,33 @@ protected:
   std::vector<std::pair<PimObjId, unsigned>> m_destRows;
 };
 
+//! @class  pimCmdAnalogAPP
+//! @brief  Pim CMD: SIMDRAM: Analog based APP
+class pimCmdAnalogAPP : public pimCmd
+{
+public:
+  pimCmdAnalogAPP(PimCmdEnum cmdType,
+                  std::pair<PimObjId, unsigned> srcRow,
+                  std::pair<PimObjId, unsigned> destRow)
+    : pimCmd(cmdType), m_srcRow(srcRow), m_destRow(destRow) {}
+  virtual ~pimCmdAnalogAPP() {}
+  virtual bool execute() override;
+protected:
+  std::pair<PimObjId, unsigned> m_srcRow;
+  std::pair<PimObjId, unsigned> m_destRow;
+};
+
+//! @class  pimCmdHColumnOP
+//! @brief  Pim CMD: BitSIMD-H: Commands within each column
+class pimCmdColGrpOP : public pimCmd
+{
+public:
+  pimCmdColGrpOP(PimCmdEnum cmdType, PimObjId objId)
+    : pimCmd(cmdType), m_objId(objId) {}
+  virtual ~pimCmdColGrpOP() {}
+  virtual bool execute() override;
+protected:
+  PimObjId m_objId;
+};
 #endif
 

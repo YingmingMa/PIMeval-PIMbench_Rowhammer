@@ -683,6 +683,7 @@ pimOpRotateRH(PimObjId objId, PimRowReg src)
 }
 
 //! @brief  BitSIMD-V: Rotate a reg to the left, using srcId for range
+//! @details  for BitSIMD-H: Lower bits locates at lower column index
 PimStatus
 pimOpRotateLH(PimObjId objId, PimRowReg src)
 {
@@ -712,3 +713,18 @@ pimOpAAP(int numSrc, int numDest, ...)
   return ok ? PIM_OK : PIM_ERROR;
 }
 
+// @brief  H layout Bitserial: Column wide shift Right
+PimStatus
+pimOpColGrpShiftR(PimObjId objId)
+{
+  bool ok = pimSim::get()->pimOpColGrpShiftR(objId);
+  return ok ? PIM_OK : PIM_ERROR;
+}
+
+// @brief  H layout Bitserial: Column wide shift Left
+PimStatus
+pimOpColGrpShiftL(PimObjId objId)
+{
+  bool ok = pimSim::get()->pimOpColGrpShiftL(objId);
+  return ok ? PIM_OK : PIM_ERROR;
+}

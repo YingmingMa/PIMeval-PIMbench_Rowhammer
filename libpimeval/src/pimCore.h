@@ -34,6 +34,8 @@ public:
   bool setSenseAmpRow(const std::vector<bool>& vals);
   bool readMultiRows(const std::vector<std::pair<unsigned, bool>>& rowIdxs);
   bool writeMultiRows(const std::vector<std::pair<unsigned, bool>>& rowIdxs);
+  bool APPor(const std::vector<std::pair<unsigned, bool>>& rowIdxs);
+  bool APPand(const std::vector<std::pair<unsigned, bool>>& rowIdxs);
 
   // Column-based operations
   bool readCol(unsigned colIndex);

@@ -303,5 +303,10 @@ PimStatus pimOpRotateLH(PimObjId objId, PimRowReg src);
 PimStatus pimOpAP(int numSrc, ...);
 PimStatus pimOpAAP(int numSrc, int numDest, ...);
 
+
+// H layout BitSerial micro ops
+PimStatus pimOpColGrpShiftR(PimObjId objId);
+PimStatus pimOpColGrpShiftL(PimObjId objId);
+
 #endif
 

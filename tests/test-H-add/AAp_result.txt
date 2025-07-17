@@ -1,0 +1,548 @@
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct AAP/AP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                               Host to Device : 16 bytes
+                               Device to Host : 4 bytes
+                             Device to Device : 0 bytes
+                              TOTAL --------- : 20 bytes       0.000001 ms Estimated Runtime       0.000000 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                  col.shift_r :         32       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@1,1 :        129       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@3,2 :         64       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                   row_ap@3,0 :         32       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :         32       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        321       0.000000       0.000000           -nan    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 0
+        Num Activate, Precharge : 64, 64
+Memory Access Log for Core 0:
+
+Recorded Memory Accesses:
+readMultiRows: indices = (0, dualContact=false) 
+writeMultiRows: indices = (8, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (7, dualContact=false) 
+writeMultiRows: indices = (5, dualContact=false) 
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (9, dualContact=false) 
+readMultiRows: indices = (0, dualContact=false) (1, dualContact=false) (4, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) (3, dualContact=false) 
+readMultiRows: indices = (8, dualContact=false) (9, dualContact=false) (5, dualContact=false) 
+readMultiRows: indices = (6, dualContact=false) 
+writeMultiRows: indices = (4, dualContact=false) 
+readMultiRows: indices = (5, dualContact=false) (3, dualContact=true) (4, dualContact=false) 
+writeMultiRows: indices = (0, dualContact=false) (8, dualContact=false) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 1
+
+
+Memory Access Log for Core 1:
+
+Recorded Memory Accesses:
+
+
+Memory Access Log for Core 2:
+
+Recorded Memory Accesses:
+
+
+Memory Access Log for Core 3:
+
+Recorded Memory Accesses:
+
+
+----------------------------------------
+All micro-op tests passed successfully.

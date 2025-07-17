@@ -153,6 +153,9 @@ public:
   bool pimOpAP(int numSrc, va_list args);
   bool pimOpAAP(int numSrc, int numDest, va_list args);
 
+  bool pimOpColGrpShiftR(PimObjId objId);
+  bool pimOpColGrpShiftL(PimObjId objId);
+
   //added for memory access pattern
   pimCore& getCore(PimCoreId coreId) {
     return m_device->getCore(coreId);

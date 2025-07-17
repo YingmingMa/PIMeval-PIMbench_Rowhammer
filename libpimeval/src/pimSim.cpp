@@ -1094,6 +1094,24 @@ pimSim::pimOpAAP(int numSrc, int numDest, va_list args)
   return m_device->executeCmd(std::move(cmd));
 }
 
+bool
+pimSim::pimOpColGrpShiftR(PimObjId objId)
+{
+  pimPerfMon perfMon("pimOpColumnShiftR");
+  if (!isValidDevice()) { return false; }
+  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdColGrpOP>(PimCmdEnum::COL_SHIFT_R, objId);
+  return m_device->executeCmd(std::move(cmd));
+}
+
+bool
+pimSim::pimOpColGrpShiftL(PimObjId objId)
+{
+  pimPerfMon perfMon("pimOpColumnShiftL");
+  if (!isValidDevice()) { return false; }
+  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdColGrpOP>(PimCmdEnum::COL_SHIFT_L, objId);
+  return m_device->executeCmd(std::move(cmd));
+}
+
 // Explicit template instantiations
 template bool pimSim::pimBroadcast<uint64_t>(PimObjId dest, uint64_t value);
 template bool pimSim::pimBroadcast<int64_t>(PimObjId dest, int64_t value);
