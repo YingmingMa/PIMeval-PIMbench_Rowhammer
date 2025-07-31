@@ -152,9 +152,13 @@ public:
   // SIMDRAM micro ops
   bool pimOpAP(int numSrc, va_list args);
   bool pimOpAAP(int numSrc, int numDest, va_list args);
+  bool pimOPAPP_GND(PimObjId objId, unsigned index);
+  bool pimOPAPP_VDD(PimObjId objId, unsigned index);
+  bool pimOPAPP_AP(PimObjId objId, unsigned index);
 
-  bool pimOpColGrpShiftR(PimObjId objId);
-  bool pimOpColGrpShiftL(PimObjId objId);
+  // BITSIMD-H microops
+  bool pimOpColGrpShiftR(PimObjId objId,  int shift_num);
+  bool pimOpColGrpShiftL(PimObjId objId,  int shift_num);
 
   //added for memory access pattern
   pimCore& getCore(PimCoreId coreId) {

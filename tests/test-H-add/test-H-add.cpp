@@ -154,7 +154,7 @@ bool testMicroOpsBasic()
 
     // carry = andVal << 1
     assert(pimOpReadRowToSa(andVal, 0) == PIM_OK);
-    assert(pimOpColGrpShiftR(andVal) == PIM_OK); // Logical LEFT shift
+    assert(pimOpColGrpShiftR(andVal, 1) == PIM_OK); // Logical LEFT shift
     assert(pimOpWriteSaToRow(carry, 0) == PIM_OK);
   }
 
@@ -262,7 +262,7 @@ bool testMicroOpsAdvance()
 
     // carry = andVal << 1
     assert(pimOpReadRowToSa(andVal, 0) == PIM_OK);
-    assert(pimOpColGrpShiftR(andVal) == PIM_OK); // Logical LEFT shift
+    assert(pimOpColGrpShiftR(andVal, 1) == PIM_OK); // Logical LEFT shift
     assert(pimOpWriteSaToRow(carry, 0) == PIM_OK);
   }
 
@@ -370,7 +370,7 @@ bool testMicroOpsOnlyAAPandShift()
 
     // carry = andVal << 1
     assert(pimOpReadRowToSa(andVal, 0) == PIM_OK);
-    assert(pimOpColGrpShiftR(andVal) == PIM_OK); // Logical LEFT shift
+    assert(pimOpColGrpShiftR(andVal, 1) == PIM_OK); // Logical LEFT shift
     assert(pimOpWriteSaToRow(carry, 0) == PIM_OK);
   }
 
@@ -485,15 +485,11 @@ bool testkoggeStoneAdd(){
     //shifting to prepare for execute
     //shift G_temp1
     assert(pimOpReadRowToSa(G_temp1, 0) == PIM_OK);
-    for(int j = 0; j < i; j++){
-      assert(pimOpColGrpShiftR(G_temp1) == PIM_OK); // Logical LEFT shift
-    }
+    assert(pimOpColGrpShiftR(G_temp1, i) == PIM_OK); // Logical LEFT shift
     assert(pimOpWriteSaToRow(G_temp1, 0) == PIM_OK);
     //shift P_temp2
     assert(pimOpReadRowToSa(P_temp2, 0) == PIM_OK);
-    for(int j = 0; j < i; j++){
-      assert(pimOpColGrpShiftR(P_temp2) == PIM_OK); // Logical LEFT shift
-    }
+    assert(pimOpColGrpShiftR(P_temp2, i) == PIM_OK); // Logical LEFT shift
     assert(pimOpWriteSaToRow(P_temp2, 0) == PIM_OK);
 
     //calculate G
@@ -520,9 +516,7 @@ bool testkoggeStoneAdd(){
   //calculate last G and produce the last value
   //shift G_temp1
   assert(pimOpReadRowToSa(G_temp1, 0) == PIM_OK);
-  for(int j = 0; j < 16; j++){
-    assert(pimOpColGrpShiftR(G_temp1) == PIM_OK); // Logical LEFT shift
-  }
+  assert(pimOpColGrpShiftR(G_temp1, 16) == PIM_OK); // Logical LEFT shift
   assert(pimOpWriteSaToRow(G_temp1, 0) == PIM_OK);
 
   //calculate G
@@ -540,7 +534,7 @@ bool testkoggeStoneAdd(){
 
   //last Xor
   assert(pimOpReadRowToSa(G_temp1, 0) == PIM_OK);
-  assert(pimOpColGrpShiftR(G_temp1) == PIM_OK);
+  assert(pimOpColGrpShiftR(G_temp1, 1) == PIM_OK);
   assert(pimOpWriteSaToRow(G_temp1, 0) == PIM_OK);
 
   assert(pimOpAAP(1, 1, G_temp1, 0, G, 0) == PIM_OK);
@@ -581,6 +575,188 @@ bool testkoggeStoneAdd(){
   return true;
 }
 
+bool testkoggeStoneAdd_APP(){
+  const unsigned numElements = 10;
+
+  std::vector<int32_t> src1(numElements);
+  std::vector<int32_t> src2(numElements);
+  std::vector<int32_t> zeros(numElements, 0);
+  std::vector<int32_t> ones(numElements, -1);
+  std::vector<int32_t> dest(numElements);
+
+  for (unsigned i = 0; i < numElements; ++i)
+  {
+    src1[i] = static_cast<int32_t>(i * 3 + 1); // num1
+    src2[i] = static_cast<int32_t>(i * 7 + 5); // num2
+  }
+
+  // Main data objects
+  PimObjId G = pimAlloc(PIM_ALLOC_H1, numElements, PIM_INT32);
+  assert(G != -1);
+
+  PimObjId P0 = pimAllocAssociated(G, PIM_INT32);
+  assert(P0 != -1);
+
+  PimObjId P = pimAllocAssociated(G, PIM_INT32);
+  assert(P != -1);
+
+  PimObjId P_temp1 = pimAllocAssociated(G, PIM_INT32);
+  assert(P_temp1 != -1);
+
+  PimObjId G_temp1 = pimAllocAssociated(G, PIM_INT32);
+  assert(G_temp1 != -1);
+
+  // DCC for ~P0
+  PimObjId not_P = pimCreateDualContactRef(P0);
+  assert(not_P != -1);
+
+  // Copy input and constants
+  assert(pimCopyHostToDevice((void *)src1.data(), G) == PIM_OK); // a
+  assert(pimCopyHostToDevice((void *)src2.data(), P) == PIM_OK);  // b
+
+  assert(pimOpAAP(1, 1, G, 0, P_temp1, 0) == PIM_OK);
+
+  // a & b
+  assert(pimOpAPP_VDD(P, 0) == PIM_OK);
+  assert(pimOpAAP(1, 1, G, 0, P0, 0) == PIM_OK);
+
+  assert(pimOpAPP_GND(P, 0) == PIM_OK);
+  assert(pimOpAPP_VDD(P_temp1, 0) == PIM_OK);  //  a | b
+  assert(pimOpAAP(1, 1, not_P, 0, P, 0) == PIM_OK);
+
+  for(int i = 1; i < 16; i = i*2){
+    //shifting to prepare for execute
+    //shift G_temp1
+    assert(pimOpReadRowToSa(G, 0) == PIM_OK);
+    assert(pimOpColGrpShiftR(G, i) == PIM_OK); // Logical LEFT shift
+    assert(pimOpWriteSaToRow(G_temp1, 0) == PIM_OK);
+    //shift P_temp1
+    assert(pimOpReadRowToSa(P, 0) == PIM_OK);
+    assert(pimOpColGrpShiftR(P, i) == PIM_OK); // Logical LEFT shift
+    assert(pimOpWriteSaToRow(P_temp1, 0) == PIM_OK);
+
+    //calculating G
+    assert(pimOpAPP_VDD(P, 0) == PIM_OK);
+    assert(pimOpAPP_GND(G_temp1, 0) == PIM_OK); // G_temp1 = P & G << i
+    assert(pimOpAPP_AP(G, 0) == PIM_OK); // G = G | (P & G << i)
+
+    //calculateing P
+    assert(pimOpAPP_VDD(P_temp1, 0) == PIM_OK);
+    assert(pimOpAPP_AP(P, 0) == PIM_OK); // P = (P << i) & P
+  }
+
+  assert(pimOpReadRowToSa(G, 0) == PIM_OK);
+  assert(pimOpColGrpShiftR(G, 16) == PIM_OK); // Logical LEFT shift
+  assert(pimOpWriteSaToRow(G_temp1, 0) == PIM_OK);
+
+  //calculating G
+  assert(pimOpAPP_VDD(P, 0) == PIM_OK);
+  assert(pimOpAPP_GND(G_temp1, 0) == PIM_OK); // G_temp1 = P & G << i
+  assert(pimOpReadRowToSa(G, 0) == PIM_OK);  // SA = G | (P & G << i)
+  assert(pimOpColGrpShiftR(G, 1) == PIM_OK);
+  assert(pimOpWriteSaToRow(G, 0) == PIM_OK); // G = (G | (P & G << i)) << 1
+
+  assert(pimOpAAP(1, 1, not_P, 0, P, 0) == PIM_OK);
+  // last xor
+  assert(pimOpAPP_VDD(G, 0) == PIM_OK);
+  assert(pimOpAPP_AP(not_P, 0) == PIM_OK); // P0 = a & b
+  
+  assert(pimOpAPP_GND(P, 0) == PIM_OK);
+  assert(pimOpAPP_VDD(G, 0) == PIM_OK);  //  G = a | b
+  assert(pimOpAPP_AP(P0, 0) == PIM_OK);
+
+  // Copy result back and validate
+  assert(pimCopyDeviceToHost(P0, (void *)dest.data()) == PIM_OK);
+
+  for (unsigned i = 0; i < numElements; ++i)
+  {
+    int32_t expected = src1[i] + src2[i];
+    if (dest[i] != expected)
+    {
+      std::cerr << "[FAIL] Index " << i << ": " << src1[i]
+                << " + " << src2[i] << " = " << expected
+                << ", but got " << dest[i] << std::endl;
+      return false;
+    }
+  }
+
+  std::cout << "Bit-serial 32-bit adder with correct APP usage OK." << std::endl;
+
+  return true;
+}
+
+bool testDRISANOR(){
+  const unsigned numElements = 10;
+
+  std::vector<int32_t> src1(numElements);
+  std::vector<int32_t> src2(numElements);
+  std::vector<int32_t> zeros(numElements, 0);
+  std::vector<int32_t> ones(numElements, -1);
+  std::vector<int32_t> dest(numElements);
+
+  for (unsigned i = 0; i < numElements; ++i)
+  {
+    src1[i] = static_cast<int32_t>(i * 3 + 1); // num1
+    src2[i] = static_cast<int32_t>(i * 7 + 5); // num2
+  }
+
+  // Main data objects
+  PimObjId G = pimAlloc(PIM_ALLOC_H1, numElements, PIM_INT32);
+  assert(G != -1);
+
+  PimObjId P0 = pimAllocAssociated(G, PIM_INT32);
+  assert(P0 != -1);
+
+  PimObjId P = pimAllocAssociated(G, PIM_INT32);
+  assert(P != -1);
+
+  PimObjId P_temp1 = pimAllocAssociated(G, PIM_INT32);
+  assert(P_temp1 != -1);
+
+  PimObjId G_temp1 = pimAllocAssociated(G, PIM_INT32);
+  assert(G_temp1 != -1);
+
+  PimObjId nor_temp = pimAllocAssociated(G, PIM_INT32);
+  assert(nor_temp != -1);
+
+  // Copy input and constants
+  assert(pimCopyHostToDevice((void *)src1.data(), G) == PIM_OK); // a
+  assert(pimCopyHostToDevice((void *)src2.data(), P) == PIM_OK);  // b
+
+  assert(pimOpReadRowToSa(G, 0) == PIM_OK);
+  assert(pimOpMove(G, PIM_RREG_SA, PIM_RREG_R1));
+  // assert(pimOpNor);
+
+  for(int i = 1; i < 16; i = i*2){
+
+  }
+
+  //calculating G
+
+
+  // last xor
+
+
+  // Copy result back and validate
+  assert(pimCopyDeviceToHost(P0, (void *)dest.data()) == PIM_OK);
+
+  for (unsigned i = 0; i < numElements; ++i)
+  {
+    int32_t expected = src1[i] + src2[i];
+    if (dest[i] != expected)
+    {
+      std::cerr << "[FAIL] Index " << i << ": " << src1[i]
+                << " + " << src2[i] << " = " << expected
+                << ", but got " << dest[i] << std::endl;
+      return false;
+    }
+  }
+
+  std::cout << "Bit-serial 32-bit adder with correct APP usage OK." << std::endl;
+
+  return true;
+}
+
 int main()
 {
   std::cout << "PIM test: SIMDRAM micro-ops" << std::endl;
@@ -591,7 +767,7 @@ int main()
     return 1;
   }
 
-  if (!testkoggeStoneAdd())
+  if (!testkoggeStoneAdd_APP())
   {
     std::cerr << "[ERROR] Micro-op tests failed!" << std::endl;
     return 1;

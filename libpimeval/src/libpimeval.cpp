@@ -713,18 +713,40 @@ pimOpAAP(int numSrc, int numDest, ...)
   return ok ? PIM_OK : PIM_ERROR;
 }
 
+// @brief  SIMDRAM: APP operation
+PimStatus pimOpAPP_GND(PimObjId objId, unsigned index)
+{
+    bool ok = pimSim::get()->pimOPAPP_GND(objId, index);
+    return ok ? PIM_OK : PIM_ERROR;
+}
+
+// @brief  SIMDRAM: APP operation
+PimStatus pimOpAPP_VDD(PimObjId objId, unsigned index)
+{
+    bool ok = pimSim::get()->pimOPAPP_VDD(objId, index);
+    return ok ? PIM_OK : PIM_ERROR;
+}
+
+// @brief  SIMDRAM: APP operation read after APP
+PimStatus pimOpAPP_AP(PimObjId objId, unsigned index)
+{
+    bool ok = pimSim::get()->pimOPAPP_AP(objId, index);
+    return ok ? PIM_OK : PIM_ERROR;
+}
+
+
 // @brief  H layout Bitserial: Column wide shift Right
 PimStatus
-pimOpColGrpShiftR(PimObjId objId)
+pimOpColGrpShiftR(PimObjId objId, int shift_num)
 {
-  bool ok = pimSim::get()->pimOpColGrpShiftR(objId);
+  bool ok = pimSim::get()->pimOpColGrpShiftR(objId, shift_num);
   return ok ? PIM_OK : PIM_ERROR;
 }
 
 // @brief  H layout Bitserial: Column wide shift Left
 PimStatus
-pimOpColGrpShiftL(PimObjId objId)
+pimOpColGrpShiftL(PimObjId objId, int shift_num)
 {
-  bool ok = pimSim::get()->pimOpColGrpShiftL(objId);
+  bool ok = pimSim::get()->pimOpColGrpShiftL(objId, shift_num);
   return ok ? PIM_OK : PIM_ERROR;
 }

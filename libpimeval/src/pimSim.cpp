@@ -1095,20 +1095,62 @@ pimSim::pimOpAAP(int numSrc, int numDest, va_list args)
 }
 
 bool
-pimSim::pimOpColGrpShiftR(PimObjId objId)
+pimSim::pimOPAPP_GND(PimObjId objId, unsigned index)
 {
-  pimPerfMon perfMon("pimOpColumnShiftR");
+  pimPerfMon perfMon("pimOpAAP");
   if (!isValidDevice()) { return false; }
-  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdColGrpOP>(PimCmdEnum::COL_SHIFT_R, objId);
+
+  std::pair<PimObjId, unsigned> rowIdx;
+  rowIdx.first = objId;
+  rowIdx.second = index;
+
+  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdAnalogAPP>(PimCmdEnum::ROW_APP_GND, rowIdx);
   return m_device->executeCmd(std::move(cmd));
 }
 
 bool
-pimSim::pimOpColGrpShiftL(PimObjId objId)
+pimSim::pimOPAPP_VDD(PimObjId objId, unsigned index)
+{
+  pimPerfMon perfMon("pimOpAAP");
+  if (!isValidDevice()) { return false; }
+
+  std::pair<PimObjId, unsigned> rowIdx;
+  rowIdx.first = objId;
+  rowIdx.second = index;
+
+  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdAnalogAPP>(PimCmdEnum::ROW_APP_VDD, rowIdx);
+  return m_device->executeCmd(std::move(cmd));
+}
+
+bool
+pimSim::pimOPAPP_AP(PimObjId objId, unsigned index)
+{
+  pimPerfMon perfMon("pimOpAAP_AP");
+  if (!isValidDevice()) { return false; }
+
+  std::pair<PimObjId, unsigned> rowIdx;
+  rowIdx.first = objId;
+  rowIdx.second = index;
+
+  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdAnalogAPP>(PimCmdEnum::ROW_APP_AP, rowIdx);
+  return m_device->executeCmd(std::move(cmd));
+}
+
+bool
+pimSim::pimOpColGrpShiftR(PimObjId objId, int shift_num)
+{
+  pimPerfMon perfMon("pimOpColumnShiftR");
+  if (!isValidDevice()) { return false; }
+  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdColGrpOP>(PimCmdEnum::COL_SHIFT_R, objId, shift_num);
+  return m_device->executeCmd(std::move(cmd));
+}
+
+bool
+pimSim::pimOpColGrpShiftL(PimObjId objId, int shift_num)
 {
   pimPerfMon perfMon("pimOpColumnShiftL");
   if (!isValidDevice()) { return false; }
-  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdColGrpOP>(PimCmdEnum::COL_SHIFT_L, objId);
+  std::unique_ptr<pimCmd> cmd = std::make_unique<pimCmdColGrpOP>(PimCmdEnum::COL_SHIFT_L, objId, shift_num);
   return m_device->executeCmd(std::move(cmd));
 }
 

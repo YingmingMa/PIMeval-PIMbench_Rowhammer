@@ -99,8 +99,9 @@ pimCmd::getName(PimCmdEnum cmdType, const std::string& suffix)
     { PimCmdEnum::RREG_ROTATE_L, "rreg.rotate_l" },
     { PimCmdEnum::ROW_AP, "row_ap" },
     { PimCmdEnum::ROW_AAP, "row_aap" },
-    { PimCmdEnum::ROW_APP_AND, "row_app_and" },
-    { PimCmdEnum::ROW_APP_OR, "row_app_or" },
+    { PimCmdEnum::ROW_APP_GND, "row_app_GND" },
+    { PimCmdEnum::ROW_APP_VDD, "row_app_VDD" },
+    { PimCmdEnum::ROW_APP_AP, "row_app_AP" },
     { PimCmdEnum::COL_SHIFT_R, "col.shift_r" },
     { PimCmdEnum::COL_SHIFT_L, "col.shift_l" },
   };
@@ -1446,7 +1447,7 @@ pimCmdReadRowToSa::execute()
       return false;
     }
     PimCoreId coreId = srcRegion.getCoreId();
-    m_device->getCore(coreId).readRow(srcRegion.getRowIdx() + m_ofst);
+    m_device->getCore(coreId).readRow(srcRegion.getRowIdx() + m_ofst, objSrc.isDualContactRef());
   }
 
   // Update stats
@@ -1472,7 +1473,7 @@ pimCmdWriteSaToRow::execute()
       return false;
     }
     PimCoreId coreId = srcRegion.getCoreId();
-    m_device->getCore(coreId).writeRow(srcRegion.getRowIdx() + m_ofst);
+    m_device->getCore(coreId).writeRow(srcRegion.getRowIdx() + m_ofst, objSrc.isDualContactRef());
   }
 
   // Update stats
@@ -1744,49 +1745,61 @@ pimCmdAnalogAAP::printDebugInfo() const
               getName().c_str(), m_srcRows.size(), m_destRows.size(), msg.c_str());
 }
 
+
+//! @brief  Pim CMD: SIMDRAM: Analog based multi-row APP
 bool
 pimCmdAnalogAPP::execute()
 {
-  //todo: wrtie more detailed debug info
   if (m_debugCmds) {
-    std::printf("PIM-MicroOp: BitSIMD-H %s\n", getName().c_str());
+    std::printf("PIM-MicroOp: BitSIMD APP (obj id %d ofst %u)\n", rowIdx.first, rowIdx.second);
   }
 
   pimResMgr* resMgr = m_device->getResMgr();
-  const pimObjInfo& objSrc = resMgr->getObjInfo(m_srcRow.first);
-  
-  std::unordered_set<unsigned> visitedRows;
+  const pimObjInfo& objSrc = resMgr->getObjInfo(rowIdx.first);
+  bool isDCCN = objSrc.isDualContactRef();
   for (unsigned i = 0; i < objSrc.getRegions().size(); ++i) {
     const pimRegion& srcRegion = objSrc.getRegions()[i];
+    if (rowIdx.second >= srcRegion.getNumAllocRows()) {
+      std::printf("PIM-Error: Row offset %u out of range [0, %u)\n", rowIdx.second, srcRegion.getNumAllocRows());
+      return false;
+    }
     PimCoreId coreId = srcRegion.getCoreId();
-    pimCore &core = m_device->getCore(coreId);
-
-    unsigned ofst = m_srcRow.second;
-    unsigned idx = objSrc.getRegions()[i].getRowIdx() + ofst;
-
-    core.readRow(idx);
-
-
+    if (m_cmdType == PimCmdEnum::ROW_APP_GND) {
+      m_device->getCore(coreId).APP_GND(srcRegion.getRowIdx() + rowIdx.second, isDCCN);
+    } else if (m_cmdType == PimCmdEnum::ROW_APP_VDD) {
+      m_device->getCore(coreId).APP_VDD(srcRegion.getRowIdx() + rowIdx.second, isDCCN);
+    } else if (m_cmdType == PimCmdEnum::ROW_APP_AP) {
+      m_device->getCore(coreId).APP_AP(srcRegion.getRowIdx() + rowIdx.second, isDCCN);
+    }
   }
+
+  // Update stats
+  pimeval::perfEnergy prfEnrgy;
+  pimSim::get()->getStatsMgr()->recordCmd(getName(), prfEnrgy);
+  return true;
 }
 
-//! @brief  Pim CMD: BitSIMD-H: row reg shift right/left by one step
+//! @brief  Pim CMD: BitSIMD-H: row reg shift right/left by steps defined by m_shift_num
 bool
 pimCmdColGrpOP::execute()
 {
   if (m_debugCmds) {
-    std::printf("PIM-MicroOp: BitSIMD-H %s (obj-id %d )\n", getName().c_str(), m_objId);
+    std::printf("PIM-MicroOp: BitSIMD-H %s (obj-id %d) ", getName().c_str(), m_objId);
+    if (m_cmdType == PimCmdEnum::COL_SHIFT_R) {
+      std::printf("Right shift %d bits. \n", m_shift_num);
+    }
+    if (m_cmdType == PimCmdEnum::COL_SHIFT_L) {
+      std::printf("Left shift %d bits. \n", m_shift_num);
+    }
   }
 
   pimResMgr* resMgr = m_device->getResMgr();
   const pimObjInfo& objSrc = resMgr->getObjInfo(m_objId);
-  //todo: get exact number of bits with padding
   PimDataType dataType = objSrc.getDataType();
   unsigned ActualSize = objSrc.getBitsPerElement(PimBitWidth::ACTUAL);
   unsigned PaddedSize = objSrc.getBitsPerElement(PimBitWidth::PADDED);
 
-  if (m_cmdType == PimCmdEnum::COL_SHIFT_R) {  // Right Rotate
-    for (unsigned i = 0; i < objSrc.getRegions().size(); ++i) {
+  for (unsigned i = 0; i < objSrc.getRegions().size(); ++i) {
       const pimRegion &srcRegion = objSrc.getRegions()[i];
       PimCoreId coreId = srcRegion.getCoreId();
       pimCore &core = m_device->getCore(coreId);
@@ -1796,42 +1809,32 @@ pimCmdColGrpOP::execute()
       size_t totalBits = sa.size();
       size_t numColGrp = totalBits / PaddedSize;
 
-      //right shift logic
-      for (size_t ColGrp = 0; ColGrp < numColGrp; ++ColGrp) {
-          size_t start = ColGrp * PaddedSize;
+      for (int shiftbit = 0; shiftbit < m_shift_num; ++shiftbit){
+        if (m_cmdType == PimCmdEnum::COL_SHIFT_R) {
+          //right shift logic
+          for (size_t ColGrp = 0; ColGrp < numColGrp; ++ColGrp) {
+              size_t start = ColGrp * PaddedSize;
 
-          for (size_t i = 0; i < ActualSize; ++i) {
-              size_t bitIdx = start + ActualSize - 1 - i;
-              bool current = sa[bitIdx];
-              sa[bitIdx] = (i == ActualSize - 1) ? false : sa[bitIdx - 1];
+              for (size_t i = 0; i < ActualSize; ++i) {
+                  size_t bitIdx = start + ActualSize - 1 - i;
+                  sa[bitIdx] = (i == ActualSize - 1) ? false : sa[bitIdx - 1];
+              }
           }
+        }
+        else if (m_cmdType == PimCmdEnum::COL_SHIFT_L) {
+          // Left shift logic
+          for (size_t ColGrp = 0; ColGrp < numColGrp; ++ColGrp) {
+              size_t start = ColGrp * PaddedSize;
+
+              for (size_t i = 0; i < ActualSize; ++i) {
+                  size_t bitIdx = start + i;
+                  sa[bitIdx] = (i == ActualSize - 1) ? false : sa[bitIdx + 1];
+              }
+          }
+        }
       }
 
       core.getRowReg(PIM_RREG_SA) = sa;
-    }
-  } else if (m_cmdType == PimCmdEnum::COL_SHIFT_L) {  // Left Rotate
-    for (unsigned i = 0; i < objSrc.getRegions().size(); ++i) {
-      const pimRegion &srcRegion = objSrc.getRegions()[i];
-      PimCoreId coreId = srcRegion.getCoreId();
-      pimCore &core = m_device->getCore(coreId);
-      
-      std::vector<bool>& sa = core.getRowReg(PIM_RREG_SA);
-
-      size_t totalBits = sa.size();
-      size_t numColGrp = totalBits / PaddedSize;
-
-      // Left shift logic
-      for (size_t ColGrp = 0; ColGrp < numColGrp; ++ColGrp) {
-          size_t start = ColGrp * PaddedSize;
-
-          for (size_t i = 0; i < ActualSize; ++i) {
-              size_t bitIdx = start + i;
-              sa[bitIdx] = (i == ActualSize - 1) ? false : sa[bitIdx + 1];
-          }
-      }
-
-      core.getRowReg(PIM_RREG_SA) = sa;
-    }
   }
 
   // Update stats

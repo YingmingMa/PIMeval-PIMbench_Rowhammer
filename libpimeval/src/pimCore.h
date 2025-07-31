@@ -28,14 +28,15 @@ public:
   PimCoreId getCoreId() const { return m_coreId; }
 
   // Row-based operations
-  bool readRow(unsigned rowIndex);
-  bool writeRow(unsigned rowIndex);
+  bool readRow(unsigned rowIndex, bool isDCCN);
+  bool writeRow(unsigned rowIndex, bool isDCCN);
   std::vector<bool>& getSenseAmpRow() { return m_rowRegs[PIM_RREG_SA]; }
   bool setSenseAmpRow(const std::vector<bool>& vals);
   bool readMultiRows(const std::vector<std::pair<unsigned, bool>>& rowIdxs);
   bool writeMultiRows(const std::vector<std::pair<unsigned, bool>>& rowIdxs);
-  bool APPor(const std::vector<std::pair<unsigned, bool>>& rowIdxs);
-  bool APPand(const std::vector<std::pair<unsigned, bool>>& rowIdxs);
+  bool APP_GND(unsigned rowIndex, bool isDCCN); //only togle GND, functionally as or
+  bool APP_VDD(unsigned rowIndex, bool isDCCN); //only togle VDD, functionally as and
+  bool APP_AP(unsigned rowIndex, bool isDCCN);
 
   // Column-based operations
   bool readCol(unsigned colIndex);
@@ -51,6 +52,7 @@ public:
   bool declareColReg(const std::string& name);
   void print() const;
   void printMemoryAccess() const;  // New method to print memory access log
+  void initBitlineCapacitor();  // initializes capacitor values and enable signal
 
   // Directly manipulate bits for functional implementation
   //! @brief  Directly set a bit for functional simulation
@@ -107,9 +109,16 @@ public:
   }
 
 private:
+  enum VoltageLevel : uint8_t {
+    GND = 0,
+    VDD = 1,
+    VDD_HALF = 2
+  };
+  
   PimCoreId m_coreId;
   unsigned m_numRows;
   unsigned m_numCols;
+  bool m_bitlineCapacitor_enable; //always off to improve simulation speed, currently only enable after the cycle of a APP call, will be closed after 
 
   std::vector<std::vector<bool>> m_array;
   std::vector<bool> m_senseAmpCol;
@@ -117,6 +126,7 @@ private:
   std::map<PimRowReg, std::vector<bool>> m_rowRegs;
   std::map<std::string, std::vector<bool>> m_colRegs;
   std::vector<std::string> m_memoryAccessLog;  // New log to record memory access
+  std::vector<uint8_t> m_bitlineCapacitor; //new fucntion added to retain the value of bitlineCapacitor if necessary, indicate APP usage previously if 1, not if 0
 };
 
 #endif

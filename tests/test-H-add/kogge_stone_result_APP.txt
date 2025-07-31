@@ -1,0 +1,582 @@
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct APP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                               Host to Device : 80 bytes
+                               Device to Host : 40 bytes
+                             Device to Device : 0 bytes
+                              TOTAL --------- : 120 bytes       0.000004 ms Estimated Runtime       0.000003 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                  col.shift_r :         47       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                             copy_o2o.int32.h :          2       0.005952       0.003889       0.000000   50.00   50.00    0.00
+                                  row_aap@1,1 :          4       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_app_GND :          7       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_app_VDD :         13       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :         22       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         22       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        117       0.005952       0.003889       0.000000    0.85    0.85    0.00
+         Num Read, Write, Logic : 22, 22, 0
+        Num Activate, Precharge : 44, 44
+Memory Access Log for Core 0:
+
+Recorded Memory Accesses:
+readMultiRows: indices = (0, dualContact=false) 
+writeMultiRows: indices = (3, dualContact=false) 
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readMultiRows: indices = (0, dualContact=false) 
+writeMultiRows: indices = (1, dualContact=false) 
+APP_GND: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_VDD: indices = (3) 
+readRow from bitline caps: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) 
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) 
+APP_VDD: indices = (0) 
+readRow: rowIndex = 0
+writeRow: rowIndex = 0
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+APP_GND: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_VDD: indices = (0) 
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+
+
+Memory Access Log for Core 1:
+
+Recorded Memory Accesses:
+readMultiRows: indices = (0, dualContact=false) 
+writeMultiRows: indices = (3, dualContact=false) 
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readMultiRows: indices = (0, dualContact=false) 
+writeMultiRows: indices = (1, dualContact=false) 
+APP_GND: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_VDD: indices = (3) 
+readRow from bitline caps: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) 
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) 
+APP_VDD: indices = (0) 
+readRow: rowIndex = 0
+writeRow: rowIndex = 0
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+APP_GND: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_VDD: indices = (0) 
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+
+
+Memory Access Log for Core 2:
+
+Recorded Memory Accesses:
+
+
+Memory Access Log for Core 3:
+
+Recorded Memory Accesses:
+
+
+----------------------------------------
+All micro-op tests passed successfully.
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct APP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                               Host to Device : 80 bytes
+                               Device to Host : 40 bytes
+                             Device to Device : 0 bytes
+                              TOTAL --------- : 120 bytes       0.000004 ms Estimated Runtime       0.000003 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                  col.shift_r :         10       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                             copy_o2o.int32.h :          2       0.005952       0.003889       0.000000   50.00   50.00    0.00
+                                  row_aap@1,1 :          4       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_app_GND :          7       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_app_VDD :         13       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :         22       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         22       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :         80       0.005952       0.003889       0.000000    1.25    1.25    0.00
+         Num Read, Write, Logic : 22, 22, 0
+        Num Activate, Precharge : 44, 44
+Memory Access Log for Core 0:
+
+Recorded Memory Accesses:
+readMultiRows: indices = (0, dualContact=false) 
+writeMultiRows: indices = (3, dualContact=false) 
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readMultiRows: indices = (0, dualContact=false) 
+writeMultiRows: indices = (1, dualContact=false) 
+APP_GND: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_VDD: indices = (3) 
+readRow from bitline caps: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) 
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) 
+APP_VDD: indices = (0) 
+readRow: rowIndex = 0
+writeRow: rowIndex = 0
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+APP_GND: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_VDD: indices = (0) 
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+
+
+Memory Access Log for Core 1:
+
+Recorded Memory Accesses:
+readMultiRows: indices = (0, dualContact=false) 
+writeMultiRows: indices = (3, dualContact=false) 
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readMultiRows: indices = (0, dualContact=false) 
+writeMultiRows: indices = (1, dualContact=false) 
+APP_GND: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_VDD: indices = (3) 
+readRow from bitline caps: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) 
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+readRow: rowIndex = 2
+writeRow: rowIndex = 3
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+APP_VDD: indices = (3) 
+readRow: rowIndex = 3
+writeRow: rowIndex = 3
+readRow from bitline caps: rowIndex = 2
+writeRow: rowIndex = 2
+readRow: rowIndex = 0
+writeRow: rowIndex = 4
+APP_VDD: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_GND: indices = (4) 
+readRow from bitline caps: rowIndex = 4
+writeRow: rowIndex = 4
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readMultiRows: indices = (1, dualContact=false) 
+writeMultiRows: indices = (2, dualContact=false) 
+APP_VDD: indices = (0) 
+readRow: rowIndex = 0
+writeRow: rowIndex = 0
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+APP_GND: indices = (2) 
+readRow: rowIndex = 2
+writeRow: rowIndex = 2
+APP_VDD: indices = (0) 
+readRow from bitline caps: rowIndex = 0
+writeRow: rowIndex = 0
+readRow from bitline caps: rowIndex = 1
+writeRow: rowIndex = 1
+
+
+Memory Access Log for Core 2:
+
+Recorded Memory Accesses:
+
+
+Memory Access Log for Core 3:
+
+Recorded Memory Accesses:
+
+
+----------------------------------------
+All micro-op tests passed successfully.

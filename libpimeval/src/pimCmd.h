@@ -106,8 +106,9 @@ enum class PimCmdEnum {
   // SIMDRAM
   ROW_AP,
   ROW_AAP,
-  ROW_APP_AND,
-  ROW_APP_OR,
+  ROW_APP_GND,
+  ROW_APP_VDD,
+  ROW_APP_AP,
   // H layout BitSerial micro ops
   COL_SHIFT_R,
   COL_SHIFT_L,
@@ -659,15 +660,12 @@ protected:
 class pimCmdAnalogAPP : public pimCmd
 {
 public:
-  pimCmdAnalogAPP(PimCmdEnum cmdType,
-                  std::pair<PimObjId, unsigned> srcRow,
-                  std::pair<PimObjId, unsigned> destRow)
-    : pimCmd(cmdType), m_srcRow(srcRow), m_destRow(destRow) {}
+  pimCmdAnalogAPP(PimCmdEnum cmdType, std::pair<PimObjId, unsigned> rowIdx)
+    : pimCmd(cmdType), rowIdx(rowIdx) {}
   virtual ~pimCmdAnalogAPP() {}
   virtual bool execute() override;
 protected:
-  std::pair<PimObjId, unsigned> m_srcRow;
-  std::pair<PimObjId, unsigned> m_destRow;
+  std::pair<PimObjId, unsigned> rowIdx;
 };
 
 //! @class  pimCmdHColumnOP
@@ -675,12 +673,13 @@ protected:
 class pimCmdColGrpOP : public pimCmd
 {
 public:
-  pimCmdColGrpOP(PimCmdEnum cmdType, PimObjId objId)
-    : pimCmd(cmdType), m_objId(objId) {}
+  pimCmdColGrpOP(PimCmdEnum cmdType, PimObjId objId, int shift_num)
+    : pimCmd(cmdType), m_objId(objId), m_shift_num(shift_num) {}
   virtual ~pimCmdColGrpOP() {}
   virtual bool execute() override;
 protected:
   PimObjId m_objId;
+  int m_shift_num;
 };
 #endif
 

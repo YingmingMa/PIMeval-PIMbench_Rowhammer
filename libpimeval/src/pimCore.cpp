@@ -33,6 +33,15 @@ pimCore::pimCore(unsigned numRows, unsigned numCols)
   for (int reg = PIM_RREG_SA; reg < PIM_RREG_MAX; ++reg) {
     declareRowReg(static_cast<PimRowReg>(reg));
   }
+
+  initBitlineCapacitor();
+}
+
+//! @brief initiate BitlienCapacitor and its enable vlalue
+void pimCore::initBitlineCapacitor()
+{
+  m_bitlineCapacitor_enable = false;
+  m_bitlineCapacitor.resize(m_numCols, VDD_HALF);  // Default to VDD_HALF
 }
 
 //! @brief  pimCore dtor
@@ -49,16 +58,36 @@ pimCore::declareRowReg(PimRowReg reg)
 }
 
 //! @brief  Read a memory row to SA
+//! @attention if bitlineCapacitor is enabled, the value read may be replace by the capacitor value if its not VDD_HALF
 bool
-pimCore::readRow(unsigned rowIndex)
+pimCore::readRow(unsigned rowIndex, bool isDCCN)
 {
   if (rowIndex >= m_numRows) {
     std::printf("PIM-Error: Out-of-boundary subarray row read: index = %u, numRows = %u\n", rowIndex, m_numRows);
     m_memoryAccessLog.push_back("Failed readRow: rowIndex = " + std::to_string(rowIndex) + " (out of bounds)");
     return false;
   }
-  m_memoryAccessLog.push_back("readRow: rowIndex = " + std::to_string(rowIndex));
-  m_rowRegs[PIM_RREG_SA] = m_array[rowIndex];
+
+  if (m_bitlineCapacitor_enable == true) {
+    std::vector<bool> resultline(m_numCols);
+    for (size_t col = 0; col < m_numCols; ++col) {
+      if(m_bitlineCapacitor[col] == VDD_HALF){
+        resultline[col] = isDCCN ? !m_array[rowIndex][col] : m_array[rowIndex][col];
+      } else {
+        resultline[col] = (m_bitlineCapacitor[col] == VDD);
+      }
+    }
+    setSenseAmpRow(resultline);
+    m_memoryAccessLog.push_back("readRow from bitline caps: rowIndex = " + std::to_string(rowIndex));
+  } else {
+    m_memoryAccessLog.push_back("readRow: rowIndex = " + std::to_string(rowIndex));
+    std::vector<bool> resultline(m_numCols);
+    for (size_t col = 0; col < m_numCols; ++col) {
+      resultline[col] = isDCCN ? !m_array[rowIndex][col] : m_array[rowIndex][col];
+    }
+    setSenseAmpRow(resultline);
+  }
+  m_bitlineCapacitor_enable = false;
   return true;
 }
 
@@ -83,6 +112,12 @@ pimCore::readCol(unsigned colIndex)
 bool
 pimCore::readMultiRows(const std::vector<std::pair<unsigned, bool>>& rowIdxs)
 {
+  //! @todo add APP function into readMultiRows
+  if (m_bitlineCapacitor_enable == true && rowIdxs.size() > 1) {
+    std::printf("PIM-Error: Undefined Behaviour for AAP after APP. \n");
+    return false;
+  }
+
   std::string logEntry = "readMultiRows: indices = ";
   for (const auto& kv : rowIdxs) {
     logEntry += "(" + std::to_string(kv.first) + ", dualContact=" + (kv.second ? "true" : "false") + ") ";
@@ -112,13 +147,29 @@ pimCore::readMultiRows(const std::vector<std::pair<unsigned, bool>>& rowIdxs)
       sum += val ? 1 : 0;
     }
     bool maj = (sum > rowIdxs.size() / 2);
-    for (const auto& kv : rowIdxs) {
-      unsigned idx = kv.first;
-      bool isDCCN = kv.second;
-      m_array[idx][col] = (isDCCN ? !maj : maj);
+
+    if (m_bitlineCapacitor_enable == true) {
+      for (const auto& kv : rowIdxs) {
+        unsigned idx = kv.first;
+        bool isDCCN = kv.second;
+
+        if(m_bitlineCapacitor[col] == VDD_HALF){
+          m_rowRegs[PIM_RREG_SA][col] = isDCCN ? !m_array[idx][col] : m_array[idx][col];
+        } else {
+          m_rowRegs[PIM_RREG_SA][col] = (m_bitlineCapacitor[col] == VDD);
+        }
+        m_array[idx][col] = isDCCN ? !m_rowRegs[PIM_RREG_SA][col] : m_rowRegs[PIM_RREG_SA][col];
+      }
+    } else {
+      for (const auto& kv : rowIdxs) {
+        unsigned idx = kv.first;
+        bool isDCCN = kv.second;
+        m_array[idx][col] = (isDCCN ? !maj : maj);;
+      }
+      m_rowRegs[PIM_RREG_SA][col] = maj;
     }
-    m_rowRegs[PIM_RREG_SA][col] = maj;
   }
+  m_bitlineCapacitor_enable = false;
   return true;
 }
 
@@ -149,12 +200,13 @@ pimCore::writeMultiRows(const std::vector<std::pair<unsigned, bool>>& rowIdxs)
       m_array[idx][col] = (isDCCN ? !val :val);
     }
   }
+  m_bitlineCapacitor_enable = false;
   return true;
 }
 
 //! @brief  Write to a memory row
 bool
-pimCore::writeRow(unsigned rowIndex)
+pimCore::writeRow(unsigned rowIndex, bool isDCCN)
 {
   if (rowIndex >= m_numRows) {
     std::printf("PIM-Error: Out-of-boundary subarray row write: index = %u, numRows = %u\n", rowIndex, m_numRows);
@@ -162,7 +214,11 @@ pimCore::writeRow(unsigned rowIndex)
     return false;
   }
   m_memoryAccessLog.push_back("writeRow: rowIndex = " + std::to_string(rowIndex));
-  m_array[rowIndex] = m_rowRegs[PIM_RREG_SA];
+
+  for (size_t col = 0; col < m_numCols; ++col) {
+    m_array[rowIndex][col] = isDCCN ? !m_rowRegs[PIM_RREG_SA][col] : m_rowRegs[PIM_RREG_SA][col];
+  }
+  m_bitlineCapacitor_enable = false;
   return true;
 }
 
@@ -243,6 +299,7 @@ pimCore::print() const
   std::printf("%s\n", oss.str().c_str());
 }
 
+//! @brief print out memory Access pattern if called
 void pimCore::printMemoryAccess() const
 {
     std::printf("\nRecorded Memory Accesses:\n");
@@ -254,3 +311,80 @@ void pimCore::printMemoryAccess() const
     std::printf("\n");
 }
 
+//! @brief in seudo precharge state only change GND to VDD_HALF, thus retain 1 in bitline capacitor
+bool pimCore::APP_GND(unsigned rowIndex, bool isDCCN){
+  std::string logEntry = "APP_GND: indices = ";
+  logEntry += "(" + std::to_string(rowIndex) + ") ";
+
+  // sanity check
+  if (rowIndex >= m_numRows) {
+    std::printf("PIM-Error: Out-of-boundary subarray APP_GND: idx = %u, numRows = %u\n", rowIndex, m_numRows);
+    m_memoryAccessLog.push_back(
+        logEntry + " - Failed (index " + std::to_string(rowIndex) + " out of bounds)"
+    );
+    return false;
+  }
+  m_memoryAccessLog.push_back(logEntry);
+
+  // compute result
+  // a normal activate stage to modify m_array
+  APP_AP(rowIndex, isDCCN);
+
+  // modify bitlineCapacitor for pseudo precharge
+  for (size_t col = 0; col < m_numCols; ++col) {
+    bool val = isDCCN ? !m_array[rowIndex][col] : m_array[rowIndex][col];
+    if(val){ //m_bitlineCapacitor remain as one if a one stored
+      m_bitlineCapacitor[col] = VDD;
+    } else { //m_bitlineCapacitor return to VDD/2 if a zero stored
+      m_bitlineCapacitor[col] = VDD_HALF;
+    }
+  }
+  m_bitlineCapacitor_enable = true;
+  return true;
+}
+
+//! @brief in seudo precharge state only change VDD to VDD_HALF, thus retain 0 in bitline capacitor
+bool pimCore::APP_VDD(unsigned rowIndex, bool isDCCN){
+  std::string logEntry = "APP_VDD: indices = ";
+  logEntry += "(" + std::to_string(rowIndex) + ") ";
+
+  // sanity check
+  if (rowIndex >= m_numRows) {
+    std::printf("PIM-Error: Out-of-boundary subarray APP_VDD: idx = %u, numRows = %u\n", rowIndex, m_numRows);
+    m_memoryAccessLog.push_back(
+        logEntry + " - Failed (index " + std::to_string(rowIndex) + " out of bounds)"
+    );
+    return false;
+  }
+  m_memoryAccessLog.push_back(logEntry);
+
+  // compute result
+  // a normal activate stage to modify m_array
+  APP_AP(rowIndex, isDCCN);
+
+  // modify bitlineCapacitor for pseudo precharge
+  for (size_t col = 0; col < m_numCols; ++col) {
+    bool val = isDCCN ? !m_array[rowIndex][col] : m_array[rowIndex][col];
+    if(val){ //m_bitlineCapacitor return to VDD/2 if a 1 detected
+      m_bitlineCapacitor[col] = VDD_HALF;
+    } else { //m_bitlineCapacitor remain as zero if a zero stored
+      m_bitlineCapacitor[col] = GND;
+    }
+  }
+  m_bitlineCapacitor_enable = true;
+  return true;
+}
+
+//! @brief  Functionally the same as a normal ap which will read a row to SA and wirte it back
+//! @attention it only include one Active and one Precharge
+//! @attention if bitlineCapacitor is enabled, the value read may be replace by the capacitor value if its not VDD_HALF
+bool
+pimCore::APP_AP(unsigned rowIndex, bool isDCCN)
+{ 
+  bool OK = readRow(rowIndex, isDCCN);
+  if (OK) {
+    return writeRow(rowIndex, isDCCN);
+  } else {
+    return OK;
+  }
+}

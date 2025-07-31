@@ -303,10 +303,16 @@ PimStatus pimOpRotateLH(PimObjId objId, PimRowReg src);
 PimStatus pimOpAP(int numSrc, ...);
 PimStatus pimOpAAP(int numSrc, int numDest, ...);
 
+// App_GND:
+//        - Example: pimOPAP(T0, 0)
+//! @todo: now only acept one source, may accept more later
+PimStatus pimOpAPP_GND(PimObjId objId, unsigned index);
+PimStatus pimOpAPP_VDD(PimObjId objId, unsigned index);
+PimStatus pimOpAPP_AP(PimObjId objId, unsigned index);
 
 // H layout BitSerial micro ops
-PimStatus pimOpColGrpShiftR(PimObjId objId);
-PimStatus pimOpColGrpShiftL(PimObjId objId);
+PimStatus pimOpColGrpShiftR(PimObjId objId, int shift_num);
+PimStatus pimOpColGrpShiftL(PimObjId objId, int shift_num);
 
 #endif
 
