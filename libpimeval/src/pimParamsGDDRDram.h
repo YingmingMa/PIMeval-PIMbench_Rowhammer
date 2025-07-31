@@ -1,31 +1,31 @@
-// File: pimParamsDDRDram.h
-// PIMeval Simulator - DDR DRAM parameters
+// File: pimParamsGDDRDram.h
+// PIMeval Simulator - GDDR DRAM parameters
 // Copyright (c) 2024 University of Virginia
 // This file is licensed under the MIT License.
 // See the LICENSE file in the root of this repository for more details.
 
-#ifndef LAVA_PIM_PARAMS_DDR_DRAM_H
-#define LAVA_PIM_PARAMS_DDR_DRAM_H
+#ifndef LAVA_PIM_PARAMS_GDDR_DRAM_H
+#define LAVA_PIM_PARAMS_GDDR_DRAM_H
 
 #include <string>
 #include <unordered_map>
 #include "pimParamsDram.h"
 
-//! @class  pimParamsDDRDram
+//! @class  pimParamsGDDRDram
 //! @brief  DRAM parameters (DRAMsim3 compatible)
-class pimParamsDDRDram : public pimParamsDram
+class pimParamsGDDRDram : public pimParamsDram
 {
 public:
-  pimParamsDDRDram();
-  pimParamsDDRDram(std::unordered_map<std::string, std::string> params);
-  ~pimParamsDDRDram() override = default;
+  pimParamsGDDRDram();
+  pimParamsGDDRDram(std::unordered_map<std::string, std::string> params);
+  ~pimParamsGDDRDram() override = default;
 
   int getDeviceWidth() const override { return m_deviceWidth;}
   int getBurstLength() const override { return m_BL;}
   int getNumChipsPerRank() const override {return m_busWidth / m_deviceWidth; }
   double getNsRowRead() const override { return m_tCK * (m_tRAS + m_tRP); }
   double getNsRowWrite() const override { return m_tCK * (m_tRAS + m_tRP); }
-  double getNsRowActivate() const override { return m_tCK * m_tRCD; }
+  double getNsRowActivate() const override { return m_tCK * m_tRCDRD; }
   double getNsRowPrecharge() const override { return m_tCK * m_tRP; }
   double getNsTCCD_S() const override { return m_tCK * m_tCCD_S; }
   double getNsTCCD_L() const override { return m_tCK * m_tCCD_L; }
@@ -39,14 +39,14 @@ public:
   double getPjRead() const override { return m_VDD * 0.15 * m_tCK * m_tCCD_L * (m_IDD4R - m_IDD3N); } // read power per chip (data copy)
   double getPjWrite() const override { return m_VDD * 0.15 * m_tCK * m_tCCD_L * (m_IDD4W - m_IDD3N); } // write power per chip (data copy)
   double getPjPrecharge() const override { return m_VDD * ((m_IDD0 * m_tRP) - (m_IDD2N * m_tRP)); } // precharge power per chip
-  double getPjActivate() const override { return m_VDD * ((m_IDD0 * m_tRAS) - (m_IDD3N * m_tRAS)); } // activate power per chip
-  double gettRCD() const override { return m_tRCD; }
+  double getPjActivate() const override { return m_VDD * ((m_IDD0 * m_tRP) - (m_IDD3N * m_tRAS)); } // activate power per chip
+  double gettRCD() const override { return m_tRCDRD; }
   double gettRP() const override { return m_tRP; }
   double gettCCD_L() const override { return m_tCCD_L; }
   double gettCCD_S() const override { return m_tCCD_S; }
   double gettCK() const override { return m_tCK; }
   double gettRAS() const override { return m_tRAS; }
-  
+
 private:
   // [dram_structure]
   std::string m_protocol;
@@ -59,15 +59,13 @@ private:
 
   // [timing]
   double m_tCK = 0.0;
-  int m_AL = 0;
   int m_CL = 0;
   int m_CWL = 0;
-  int m_tRCD = 0;
+  int m_tRCDRD = 0;
+  int m_tRCDWR = 0;
   int m_tRP = 0;
   int m_tRAS = 0;
   int m_tRFC = 0;
-  int m_tRFC2 = 0;
-  int m_tRFC4 = 0;
   int m_tREFI = 0;
   int m_tRPRE = 0;
   int m_tWPRE = 0;
@@ -77,20 +75,22 @@ private:
   int m_tWTR_L = 0;
   int m_tFAW = 0;
   int m_tWR = 0;
-  int m_tWR2 = 0;
-  int m_tRTP = 0;
-  int m_tCCD_S = 0;
-  int m_tCCD_L = 0;
-  int m_tCKE = 0;
-  int m_tCKESR = 0;
   int m_tXS = 0;
   int m_tXP = 0;
   int m_tRTRS = 0;
+  int m_tRTP_L = 0;
+  int m_tRTP_S = 0;
+  int m_tCCD_S = 0;
+  int m_tCCD_L = 0;
+  int m_tCKESR = 0;
+  int m_tPPD = 0;
+  int m_t32AW = 0;
+  int m_RFCb = 0;
+  int m_tREFIb = 0;
 
   // [power]
   double m_VDD = 0.0;
   int m_IDD0 = 0;
-  double m_IPP0 = 0;
   int m_IDD2P = 0;
   int m_IDD2N = 0;
   int m_IDD3P = 0;
@@ -98,6 +98,7 @@ private:
   int m_IDD4W = 0;
   int m_IDD4R = 0;
   int m_IDD5AB = 0;
+  int m_IDD5PB = 0;
   int m_IDD6x = 0;
 
   // [system]
@@ -106,7 +107,6 @@ private:
   int m_busWidth = 0;
   std::string m_addressMapping;
   std::string m_queueStructure;
-  std::string m_refreshPolicy;
   std::string m_rowBufPolicy;
   int m_cmdQueueSize = 0;
   int m_transQueueSize = 0;
