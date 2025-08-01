@@ -737,7 +737,7 @@ PimStatus pimOpAPP_AP(PimObjId objId, unsigned index)
 
 // @brief  H layout Bitserial: Column wide shift Right
 PimStatus
-pimOpColGrpShiftR(PimObjId objId, int shift_num)
+pimOpColGrpShiftR(PimObjId objId, unsigned shift_num)
 {
   bool ok = pimSim::get()->pimOpColGrpShiftR(objId, shift_num);
   return ok ? PIM_OK : PIM_ERROR;
@@ -745,7 +745,7 @@ pimOpColGrpShiftR(PimObjId objId, int shift_num)
 
 // @brief  H layout Bitserial: Column wide shift Left
 PimStatus
-pimOpColGrpShiftL(PimObjId objId, int shift_num)
+pimOpColGrpShiftL(PimObjId objId, unsigned shift_num)
 {
   bool ok = pimSim::get()->pimOpColGrpShiftL(objId, shift_num);
   return ok ? PIM_OK : PIM_ERROR;

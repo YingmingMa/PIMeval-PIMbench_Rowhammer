@@ -311,8 +311,8 @@ PimStatus pimOpAPP_VDD(PimObjId objId, unsigned index);
 PimStatus pimOpAPP_AP(PimObjId objId, unsigned index);
 
 // H layout BitSerial micro ops
-PimStatus pimOpColGrpShiftR(PimObjId objId, int shift_num);
-PimStatus pimOpColGrpShiftL(PimObjId objId, int shift_num);
+PimStatus pimOpColGrpShiftR(PimObjId objId, unsigned shift_num);
+PimStatus pimOpColGrpShiftL(PimObjId objId, unsigned shift_num);
 
 #endif
 

@@ -673,13 +673,13 @@ protected:
 class pimCmdColGrpOP : public pimCmd
 {
 public:
-  pimCmdColGrpOP(PimCmdEnum cmdType, PimObjId objId, int shift_num)
+  pimCmdColGrpOP(PimCmdEnum cmdType, PimObjId objId, unsigned shift_num)
     : pimCmd(cmdType), m_objId(objId), m_shift_num(shift_num) {}
   virtual ~pimCmdColGrpOP() {}
   virtual bool execute() override;
 protected:
   PimObjId m_objId;
-  int m_shift_num;
+  unsigned m_shift_num;
 };
 #endif
 

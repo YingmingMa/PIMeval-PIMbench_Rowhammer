@@ -1799,6 +1799,10 @@ pimCmdColGrpOP::execute()
   unsigned ActualSize = objSrc.getBitsPerElement(PimBitWidth::ACTUAL);
   unsigned PaddedSize = objSrc.getBitsPerElement(PimBitWidth::PADDED);
 
+  if(m_shift_num > ActualSize){
+    std::printf("PIM-Error: Can't shift more bits %u than the data type size %u", m_shift_num, ActualSize);
+  }
+
   for (unsigned i = 0; i < objSrc.getRegions().size(); ++i) {
       const pimRegion &srcRegion = objSrc.getRegions()[i];
       PimCoreId coreId = srcRegion.getCoreId();
@@ -1838,6 +1842,8 @@ pimCmdColGrpOP::execute()
   }
 
   // Update stats
+  std::string cmdName = getName();
+  cmdName += "@" + std::to_string(m_shift_num);
   pimeval::perfEnergy prfEnrgy;
   pimSim::get()->getStatsMgr()->recordCmd(getName(), prfEnrgy);
   return true;

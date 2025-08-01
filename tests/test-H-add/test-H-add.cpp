@@ -704,41 +704,60 @@ bool testDRISANOR(){
   PimObjId G = pimAlloc(PIM_ALLOC_H1, numElements, PIM_INT32);
   assert(G != -1);
 
-  PimObjId P0 = pimAllocAssociated(G, PIM_INT32);
-  assert(P0 != -1);
-
   PimObjId P = pimAllocAssociated(G, PIM_INT32);
   assert(P != -1);
-
-  PimObjId P_temp1 = pimAllocAssociated(G, PIM_INT32);
-  assert(P_temp1 != -1);
-
-  PimObjId G_temp1 = pimAllocAssociated(G, PIM_INT32);
-  assert(G_temp1 != -1);
-
-  PimObjId nor_temp = pimAllocAssociated(G, PIM_INT32);
-  assert(nor_temp != -1);
 
   // Copy input and constants
   assert(pimCopyHostToDevice((void *)src1.data(), G) == PIM_OK); // a
   assert(pimCopyHostToDevice((void *)src2.data(), P) == PIM_OK);  // b
 
+  //initial
   assert(pimOpReadRowToSa(G, 0) == PIM_OK);
-  assert(pimOpMove(G, PIM_RREG_SA, PIM_RREG_R1));
-  // assert(pimOpNor);
+  assert(pimOpNor(G, PIM_RREG_SA, PIM_RREG_SA, PIM_RREG_R1) == PIM_OK); //R1 = ~G
+  assert(pimOpMove(G, PIM_RREG_SA, PIM_RREG_R2) == PIM_OK); // R2 = G
+  assert(pimOpReadRowToSa(P, 0) == PIM_OK); //SA = P
+  assert(pimOpNor(G, PIM_RREG_SA, PIM_RREG_SA, PIM_RREG_R3) == PIM_OK); //R3 = ~P
+  assert(pimOpNor(G, PIM_RREG_R2, PIM_RREG_SA, PIM_RREG_R2) == PIM_OK); //R2 = A nor B
+  assert(pimOpNor(G, PIM_RREG_R1, PIM_RREG_R3, PIM_RREG_R1) == PIM_OK); //R1 = G = A & B
+  assert(pimOpNor(G, PIM_RREG_R1, PIM_RREG_R2, PIM_RREG_SA) == PIM_OK); //SA = P = A xor B
+  assert(pimOpWriteSaToRow(P, 0) == PIM_OK); //P0 stored in P
 
-  for(int i = 1; i < 16; i = i*2){
+  assert(pimOpMove(G, PIM_RREG_SA, PIM_RREG_R2) == PIM_OK); // move P0 to R2
 
+  //prefix G in R1, P in R2
+  for (int i = 1; i < 32; i = i*2){
+    assert(pimOpNor(G, PIM_RREG_R2, PIM_RREG_R2, PIM_RREG_R2) == PIM_OK); //R2 = ~p
+    assert(pimOpNor(G, PIM_RREG_R1, PIM_RREG_R1, PIM_RREG_R3) == PIM_OK); //R3 = ~g
+    assert(pimOpMove(G, PIM_RREG_R3, PIM_RREG_SA) == PIM_OK);
+    assert(pimOpColGrpShiftR(G, i) == PIM_OK); //SA = ~g << i
+    assert(pimOpNor(G, PIM_RREG_SA, PIM_RREG_R2, PIM_RREG_R3) == PIM_OK); //R3 = ~(~g << i) & p
+    assert(pimOpNor(G, PIM_RREG_R3, PIM_RREG_R1, PIM_RREG_R1) == PIM_OK); //R1 = g nor ~(~g << i) & p
+    assert(pimOpNor(G, PIM_RREG_R1, PIM_RREG_R1, PIM_RREG_R1) == PIM_OK); //R1 = new G
+    if (i < 16){
+      assert(pimOpMove(G, PIM_RREG_R2, PIM_RREG_SA) == PIM_OK);
+      assert(pimOpColGrpShiftR(G, i) == PIM_OK); //SA = ~p << i
+      assert(pimOpNor(G, PIM_RREG_SA, PIM_RREG_R2, PIM_RREG_R2) == PIM_OK);
+    }
   }
 
-  //calculating G
+  // final
+  //shift G
+  assert(pimOpMove(G, PIM_RREG_R1, PIM_RREG_SA) == PIM_OK); 
+  assert(pimOpColGrpShiftR(G, 1) == PIM_OK);
+  assert(pimOpMove(G, PIM_RREG_SA, PIM_RREG_R1) == PIM_OK); //R1 = ~G << 1
 
+  assert(pimOpReadRowToSa(P, 0) == PIM_OK); //SA = P0
+  assert(pimOpNor(G, PIM_RREG_SA, PIM_RREG_SA, PIM_RREG_R2) == PIM_OK); // R2 = ~P0
+  assert(pimOpNor(G, PIM_RREG_R1, PIM_RREG_R1, PIM_RREG_R3) == PIM_OK); // R3 = G << 1
+  assert(pimOpNor(G, PIM_RREG_R3, PIM_RREG_R2, PIM_RREG_R2) == PIM_OK); // R2 = G << 1 nor ~P0
+  assert(pimOpNor(G, PIM_RREG_R1, PIM_RREG_SA, PIM_RREG_SA) == PIM_OK); // SA = P0 nor ~G << 1
+  assert(pimOpNor(G, PIM_RREG_R2, PIM_RREG_SA, PIM_RREG_SA) == PIM_OK);
 
-  // last xor
+  assert(pimOpWriteSaToRow(G, 0) == PIM_OK); 
 
 
   // Copy result back and validate
-  assert(pimCopyDeviceToHost(P0, (void *)dest.data()) == PIM_OK);
+  assert(pimCopyDeviceToHost(G, (void *)dest.data()) == PIM_OK);
 
   for (unsigned i = 0; i < numElements; ++i)
   {
@@ -747,7 +766,7 @@ bool testDRISANOR(){
     {
       std::cerr << "[FAIL] Index " << i << ": " << src1[i]
                 << " + " << src2[i] << " = " << expected
-                << ", but got " << dest[i] << std::endl;
+                << ", but got " << std::hex << dest[i] << std::dec << std::endl;
       return false;
     }
   }
@@ -767,7 +786,7 @@ int main()
     return 1;
   }
 
-  if (!testkoggeStoneAdd_APP())
+  if (!testkoggeStoneAdd())
   {
     std::cerr << "[ERROR] Micro-op tests failed!" << std::endl;
     return 1;

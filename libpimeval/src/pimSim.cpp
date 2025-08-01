@@ -1137,7 +1137,7 @@ pimSim::pimOPAPP_AP(PimObjId objId, unsigned index)
 }
 
 bool
-pimSim::pimOpColGrpShiftR(PimObjId objId, int shift_num)
+pimSim::pimOpColGrpShiftR(PimObjId objId, unsigned shift_num)
 {
   pimPerfMon perfMon("pimOpColumnShiftR");
   if (!isValidDevice()) { return false; }
@@ -1146,7 +1146,7 @@ pimSim::pimOpColGrpShiftR(PimObjId objId, int shift_num)
 }
 
 bool
-pimSim::pimOpColGrpShiftL(PimObjId objId, int shift_num)
+pimSim::pimOpColGrpShiftL(PimObjId objId, unsigned shift_num)
 {
   pimPerfMon perfMon("pimOpColumnShiftL");
   if (!isValidDevice()) { return false; }

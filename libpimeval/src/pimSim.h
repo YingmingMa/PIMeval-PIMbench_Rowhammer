@@ -157,8 +157,8 @@ public:
   bool pimOPAPP_AP(PimObjId objId, unsigned index);
 
   // BITSIMD-H microops
-  bool pimOpColGrpShiftR(PimObjId objId,  int shift_num);
-  bool pimOpColGrpShiftL(PimObjId objId,  int shift_num);
+  bool pimOpColGrpShiftR(PimObjId objId,  unsigned shift_num);
+  bool pimOpColGrpShiftL(PimObjId objId,  unsigned shift_num);
 
   //added for memory access pattern
   pimCore& getCore(PimCoreId coreId) {
