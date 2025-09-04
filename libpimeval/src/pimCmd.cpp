@@ -1944,7 +1944,7 @@ pimCmdColGrpOP::execute()
 
   pimResMgr* resMgr = m_device->getResMgr();
   const pimObjInfo& objSrc = resMgr->getObjInfo(m_objId);
-  PimDataType dataType = objSrc.getDataType();
+  // PimDataType dataType = objSrc.getDataType();
   unsigned ActualSize = objSrc.getBitsPerElement(PimBitWidth::ACTUAL);
   unsigned PaddedSize = objSrc.getBitsPerElement(PimBitWidth::PADDED);
 
@@ -1962,7 +1962,7 @@ pimCmdColGrpOP::execute()
       size_t totalBits = sa.size();
       size_t numColGrp = totalBits / PaddedSize;
 
-      for (int shiftbit = 0; shiftbit < m_shift_num; ++shiftbit){
+      for (unsigned shiftbit = 0; shiftbit < m_shift_num; ++shiftbit){
         if (m_cmdType == PimCmdEnum::COL_SHIFT_R) {
           //right shift logic
           for (size_t ColGrp = 0; ColGrp < numColGrp; ++ColGrp) {
@@ -1994,7 +1994,7 @@ pimCmdColGrpOP::execute()
   std::string cmdName = getName();
   cmdName += "@" + std::to_string(m_shift_num);
   pimeval::perfEnergy prfEnrgy;
-  pimSim::get()->getStatsMgr()->recordCmd(getName(), prfEnrgy);
+  pimSim::get()->getStatsMgr()->recordCmd(cmdName, prfEnrgy);
   return true;
 }
 

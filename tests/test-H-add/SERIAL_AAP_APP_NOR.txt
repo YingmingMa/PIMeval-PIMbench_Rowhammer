@@ -1,0 +1,465 @@
+Serial:
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct AAP/AP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                                Host to Device : 16 bytes
+                                Device to Host : 4 bytes
+                              Device to Device : 0 bytes
+                               TOTAL --------- : 20 bytes       0.000001 ms Estimated Runtime       0.000000 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                col.shift_r@1 :         32       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@1,1 :        129       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@3,2 :         64       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                   row_ap@3,0 :         32       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :         32       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         32       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        321       0.000000       0.000000           -nan    0.00    0.00    0.00
+         Num Read, Write, Logic : 32, 32, 0
+        Num Activate, Precharge : 64, 64
+----------------------------------------
+All micro-op tests passed successfully.
+
+AAP:
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct AAP/AP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                                Host to Device : 160 bytes
+                                Device to Host : 40 bytes
+                              Device to Device : 0 bytes
+                               TOTAL --------- : 200 bytes       0.000007 ms Estimated Runtime       0.000005 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                col.shift_r@1 :          3       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                               col.shift_r@16 :          1       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@2 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@4 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@8 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@1,1 :         25       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@3,1 :          5       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@3,2 :          1       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                   row_ap@3,0 :         14       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :         10       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         10       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :         75       0.000000       0.000000           -nan    0.00    0.00    0.00
+         Num Read, Write, Logic : 10, 10, 0
+        Num Activate, Precharge : 20, 20
+----------------------------------------
+All micro-op tests passed successfully.
+
+APP:
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct APP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                                Host to Device : 80 bytes
+                                Device to Host : 40 bytes
+                              Device to Device : 0 bytes
+                               TOTAL --------- : 120 bytes       0.000004 ms Estimated Runtime       0.000003 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                col.shift_r@1 :          3       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                               col.shift_r@16 :          1       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@2 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@4 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@8 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@1,1 :          4       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                   row_app_AP :         10       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_app_GND :          7       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_app_VDD :         13       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :         10       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         10       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :         64       0.000000       0.000000           -nan    0.00    0.00    0.00
+         Num Read, Write, Logic : 10, 10, 0
+        Num Activate, Precharge : 20, 20
+----------------------------------------
+All micro-op tests passed successfully.
+
+NOR:
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct APP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                                Host to Device : 80 bytes
+                                Device to Host : 40 bytes
+                              Device to Device : 0 bytes
+                               TOTAL --------- : 120 bytes       0.000004 ms Estimated Runtime       0.000003 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                col.shift_r@1 :          3       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                               col.shift_r@16 :          1       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@2 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@4 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@8 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :          3       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         13       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.nor :         39       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :         67       0.000000       0.000000           -nan    0.00    0.00    0.00
+         Num Read, Write, Logic : 3, 2, 52
+        Num Activate, Precharge : 5, 5
+----------------------------------------
+All micro-op tests passed successfully.
+
+Nor 1 latch different selection enable:
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct APP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                                Host to Device : 80 bytes
+                                Device to Host : 40 bytes
+                              Device to Device : 0 bytes
+                               TOTAL --------- : 120 bytes       0.000004 ms Estimated Runtime       0.000003 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                col.shift_r@1 :          3       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                               col.shift_r@16 :          1       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@2 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@4 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@8 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :         31       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         20       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         12       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.nor :         43       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        116       0.000000       0.000000           -nan    0.00    0.00    0.00
+         Num Read, Write, Logic : 31, 20, 55
+        Num Activate, Precharge : 51, 51
+----------------------------------------
+All micro-op tests passed successfully.
+
+Nor 1 latch different selection Disable:
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct APP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                                Host to Device : 80 bytes
+                                Device to Host : 40 bytes
+                              Device to Device : 0 bytes
+                               TOTAL --------- : 120 bytes       0.000004 ms Estimated Runtime       0.000003 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                col.shift_r@1 :          3       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                               col.shift_r@16 :          1       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@2 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@4 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@8 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :         39       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         23       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :         43       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.nor :         43       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :        158       0.000000       0.000000           -nan    0.00    0.00    0.00
+         Num Read, Write, Logic : 39, 23, 86
+        Num Activate, Precharge : 62, 62
+----------------------------------------
+All micro-op tests passed successfully.
+
+Nor 3 latch most optimal:
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct APP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                                Host to Device : 80 bytes
+                                Device to Host : 40 bytes
+                              Device to Device : 0 bytes
+                               TOTAL --------- : 120 bytes       0.000004 ms Estimated Runtime       0.000003 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                col.shift_r@1 :          3       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                               col.shift_r@16 :          1       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@2 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@4 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@8 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :          3       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.mov :          8       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.nor :         39       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :         62       0.000000       0.000000           -nan    0.00    0.00    0.00
+         Num Read, Write, Logic : 3, 2, 47
+        Num Activate, Precharge : 5, 5
+----------------------------------------
+All micro-op tests passed successfully.
+
+APP without dual contact:
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct APP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                                Host to Device : 80 bytes
+                                Device to Host : 40 bytes
+                              Device to Device : 0 bytes
+                               TOTAL --------- : 120 bytes       0.000004 ms Estimated Runtime       0.000003 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                col.shift_r@1 :          3       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                               col.shift_r@16 :          1       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@2 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@4 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@8 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@1,1 :          4       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                   row_app_AP :          9       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_app_GND :          7       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_app_VDD :         13       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :         12       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         12       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.not :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :         69       0.000000       0.000000           -nan    0.00    0.00    0.00
+         Num Read, Write, Logic : 12, 12, 2
+        Num Activate, Precharge : 24, 24
+----------------------------------------
+All micro-op tests passed successfully.
+
+AAP without Dual Contact Cell
+PIM test: SIMDRAM micro-ops
+----------------------------------------
+PIM-Config: Debug Flags = 0x0
+PIM-Config: Simulator Config File: <NONE>
+PIM-Config: Memory Config File: <DEFAULT>
+PIM-Config: Memory Protocol: DDR
+PIM-Config: Current Device = PIM_DEVICE_BITSIMD_H, Simulation Target = PIM_DEVICE_BITSIMD_H
+PIM-Config: #ranks = 1, #banksPerRank = 1, #subarraysPerBank = 8, #rowsPerSubarray = 128, #colsPerSubarray = 256
+PIM-Config: Number of Threads = 16
+PIM-Config: Load Balanced = 1
+----------------------------------------
+PIM-Info: Aggregate every two subarrays as a single core
+PIM-Info: Created performance energy model for bit-serial PIM
+PIM-Info: Created PIM device with 4 cores of 256 rows and 256 columns.
+PIM-Info: Created thread pool with 15 threads.
+Bit-serial 32-bit adder with correct AAP/AP usage OK.
+----------------------------------------
+PIM Params:
+           PIM Device Type Enum : PIM_DEVICE_BITSIMD_H
+          PIM Simulation Target : PIM_DEVICE_BITSIMD_H
+ Rank, Bank, Subarray, Row, Col : 1, 1, 8, 128, 256
+            Number of PIM Cores : 4
+        Number of Rows per Core : 256
+        Number of Cols per Core : 256
+                Typical Rank BW : 25.600000 GB/s
+                  Row Read (ns) : 46.500000
+                 Row Write (ns) : 46.500000
+                      tCCD (ns) : 3.000000
+Data Copy Stats:
+                                Host to Device : 160 bytes
+                                Device to Host : 40 bytes
+                              Device to Device : 0 bytes
+                               TOTAL --------- : 200 bytes       0.000007 ms Estimated Runtime       0.000005 mj Estimated Energy
+PIM Command Stats:
+                                      PIM-CMD :        CNT    Runtime(ms)     Energy(mJ)         GOPS/W      %R      %W      %L
+                                col.shift_r@1 :          3       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                               col.shift_r@16 :          1       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@2 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@4 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                col.shift_r@8 :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@1,1 :         25       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@3,1 :          5       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                  row_aap@3,2 :          1       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                   row_ap@3,0 :         14       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_r :         12       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                        row_w :         12       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                                     rreg.not :          2       0.000000       0.000000       0.000000    0.00    0.00    0.00
+                              TOTAL --------- :         81       0.000000       0.000000           -nan    0.00    0.00    0.00
+         Num Read, Write, Logic : 12, 12, 2
+        Num Activate, Precharge : 24, 24
+----------------------------------------
+All micro-op tests passed successfully.

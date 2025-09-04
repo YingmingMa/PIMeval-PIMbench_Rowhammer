@@ -333,9 +333,13 @@ PimStatus pimOpRotateLH(PimObjId objId, PimRowReg src);
 PimStatus pimOpAP(int numSrc, ...);
 PimStatus pimOpAAP(int numSrc, int numDest, ...);
 
-// App_GND:
-//        - Example: pimOPAP(T0, 0)
-//! @todo: now only acept one source, may accept more later
+// ELP2IM micro ops:
+// APP_VDD:
+//  - Functionality: saves the 0 of the designate row in cell capacitor which will effect the read value of the next activate
+// APP_VDD:
+//  - Functionality: saves the 1 of the designate row in cell capacitor which will effect the read value of the next activate
+// APP_AP:
+//  - Functionality: a standard AP instruction to read a row and write it back, usually used after an APP to form a complete and/or operation
 PimStatus pimOpAPP_GND(PimObjId objId, unsigned index);
 PimStatus pimOpAPP_VDD(PimObjId objId, unsigned index);
 PimStatus pimOpAPP_AP(PimObjId objId, unsigned index);
